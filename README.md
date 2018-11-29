@@ -8,4 +8,4 @@ Software Technology Project (2018) - Ece Ntua
 Μαστόρου | Λυκούργος | 3115203 | lykmast
 Ματιάτου | Αλίκη | 3115069 | alicemat
 Πάχος | Αλέξανδρος | 3115407 | Codagramist
-Χρυσόπουλος | Μιλτιάδης | 3115718 | 
+Χρυσόπουλος | Μιλτιάδης | 3115718 | miltoschrys
