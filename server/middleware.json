@@ -32,7 +32,10 @@
   },
   "session": {},
   "auth": {},
-  "parse": {},
+  "parse": {
+    "body-parser#json": {},
+    "body-parser#urlencoded": {"params": { "extended": true }}
+  },
   "routes": {
     "loopback#rest": {
       "paths": [
@@ -40,7 +43,11 @@
       ]
     }
   },
-  "files": {},
+  "files": {
+    "loopback#static": {
+    "params": "$!../client"
+    }
+  },
   "final": {
     "loopback#urlNotFound": {}
   },
