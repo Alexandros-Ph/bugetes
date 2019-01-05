@@ -12,8 +12,32 @@ module.exports = function(app) {
       res.render('index');
   });
 
+  app.get('/register', (req, res) => {
+    res.render('register');
+   });
 
-  // Install a `/` route that returns server status
+// register a user
+   app.post('/register', function(req, res){
+     User.create({
+       username: req.body.fname,
+       email: req.body.email,
+       password: req.body.pass
+     }, function(err, userInstance) {
+       if (err) {
+         res.render('response', { //render view named 'response.ejs'
+           title: 'Registration failed',
+           content: err.message,
+           redirectTo: '/register',
+           redirectToLinkText: 'Try again'
+         });
+         return;
+       }
+       console.log(userInstance);
+       res.render('index');
+     });
+   });
+
+// login a user
   app.post('/login', function(req, res) {
     User.login({
       email: req.body.email,

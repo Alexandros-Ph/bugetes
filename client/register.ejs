@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Respone</title>
+	<title>Login Page</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -26,19 +26,61 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-        <span class="login100-form-title">
-          <%= title %>
-        </span>
-				<div class="text-center p-t-100">
-					<span class="txt1">
-						<%= content %>
+				<div class="login100-pic js-tilt" data-tilt>
+					<img src="images/img-01.png" alt="IMG">
+				</div>
+
+				<form class="login100-form validate-form" id="login_form" action="/register" method="post">
+					<span class="login100-form-title">
+						Create Account
 					</span>
-				</div>
-				<div class="text-center p-t-100">
-					<a class="txt2" href="<%= redirectTo %>">
-						<%= redirectToLinkText %>
-					</a>
-				</div>
+
+          <div class="wrap-input100">
+						<input class="input100" type="text" name="fname" placeholder="Username">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-user" aria-hidden="true"></i>
+						</span>
+					</div>
+
+          <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input class="input100" type="email" name="email" placeholder="Email*">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input class="input100" type="password" name="pass" placeholder="Password*" autocomplete="new-password">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+
+
+
+					<div class="container-login100-form-btn">
+						<button type="submit" class="login100-form-btn">
+							Register
+						</button>
+					</div>
+
+					<div class="text-center p-t-77">
+						<span class="txt1">
+							Already have an account?
+						</span>
+					</div>
+
+					<div class="text-center p-t-10">
+						<a class="txt2" href="../">
+							Login
+							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+						</a>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
