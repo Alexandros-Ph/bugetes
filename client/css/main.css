@@ -193,8 +193,23 @@ iframe {
 
 /*------------------------------------------------------------------
 [  ]*/
+
+#user_image{
+  max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
 .login100-pic {
   width: 316px;
+  position: relative;
 }
 
 .login100-pic img {
@@ -217,7 +232,7 @@ iframe {
 
   width: 100%;
   display: block;
-  padding-bottom: 54px;
+  padding-bottom: 34px;
 }
 
 
@@ -306,6 +321,66 @@ iframe {
 .input100:focus + .focus-input100 + .symbol-input100 {
   color: #57b846;
   padding-left: 28px;
+}
+
+/*------------------------------------------------------------------
+[ Radio ]*/
+
+input[type="radio"] {
+  display: none;
+}
+  input[type="radio"]:not(:disabled) ~ label {
+    cursor: pointer;
+  }
+
+
+label {
+  height: 100%;
+  display: block;
+  background: white;
+  border: 2px solid #57b846;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  box-shadow: 0px 3px 10px -2px hsla(150, 5%, 65%, 0.5);
+  position: relative;
+}
+
+.radio_span{
+  font-size: 0.85rem;
+  font-weight: 200;
+  line-height: 1.5;
+}
+
+input[type="radio"]:checked + label {
+  background: #57b846;
+  color: white;
+  box-shadow: 0px 0px 20px #57b846;
+}
+
+input[type="radio"]:checked + label::after {
+  color: hsla(215, 5%, 25%, 1);
+  font-family: FontAwesome;
+  border: 2px solid #57b846;
+  content: "\f00c";
+  font-size: 24px;
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 50px;
+  width: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0px 2px 5px -2px hsla(0, 0%, 0%, 0.25);
+  z-index: 100;
+}
+
+#lab01{
+  margin-top: 1.5rem;
 }
 
 /*------------------------------------------------------------------

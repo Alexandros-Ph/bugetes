@@ -25,12 +25,12 @@
 
 	<div class="limiter">
 		<div class="container-login100">
-			<div class="wrap-login100">
+			<div class="wrap-login100" style="padding: 33px 130px 53px 85px;">
 				<div class="login100-pic js-tilt" data-tilt>
-					<img src="images/img-01.png" alt="IMG">
+					<img src="images/img-01.png" alt="IMG" id="user_image">
 				</div>
 
-				<form class="login100-form validate-form" id="login_form" action="/register" method="post">
+				<form class="login100-form validate-form" id="login_form" action="/register" method="post" style="margin-top:25px">
 					<span class="login100-form-title">
 						Create Account
 					</span>
@@ -61,6 +61,22 @@
 					</div>
 
 
+					<div>
+  					<input type="radio" id="control_01" name="select" value="1" checked>
+  					<label for="control_01" id="lab01">
+    					<h5>User</h5>
+    					<span class="radio_span">I wanna buy homemade food through this app.</span>
+  					</label>
+					</div>
+					<div>
+  					<input type="radio" id="control_02" name="select" value="2">
+  					<label for="control_02">
+    					<h5>Provider</h5>
+    					<span class="radio_span">I wanna provide homemade food through this app.</span>
+  					</label>
+					</div>
+
+
 
 					<div class="container-login100-form-btn">
 						<button type="submit" class="login100-form-btn">
@@ -68,7 +84,7 @@
 						</button>
 					</div>
 
-					<div class="text-center p-t-77">
+					<div class="text-center p-t-30">
 						<span class="txt1">
 							Already have an account?
 						</span>
