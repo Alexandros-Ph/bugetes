@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 module.exports = function(app) {
 
   var User = app.models.User;
@@ -59,4 +57,48 @@ module.exports = function(app) {
       });
     });
   });
+
+
+// create dev role if it doesn't exist already
+  var Role = app.models.Role;
+
+  Role.findOne({where: {name: 'dev'}}, function(err, req){
+    if (err) throw err;
+    if (req == null){
+
+      var Role = app.models.Role;
+      var RoleMapping = app.models.RoleMapping;
+
+      User.find({where: {or: [{email: 'alex.pachos1@gmail.com'}, {email: 'miltos503@gmail.com'}, {email: 'aliki.mat@gmail.com'}, {email: 'fotinidelig@gmail.com'}, {email: 'stzesiades@gmail.com'}, {email: 'lykmast@gmail.com'}]}},
+        function(err, team){
+
+          if (err) {
+            throw err;
+            return;
+          }
+
+          Role.create({
+            name: 'dev'
+          }, function(err, role) {
+            if (err) throw err;
+
+            //make all team devs
+            team.forEach(function(member){
+              role.principals.create({
+                principalType: RoleMapping.USER,
+                principalId: member.id
+              }, function(err, principal) {
+                if (err) throw err;
+              });
+            });
+
+          });
+      });
+
+    }
+
+  });
+
+
+
 };
