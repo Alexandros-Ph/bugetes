@@ -3,7 +3,8 @@
 module.exports = function(app) {
 
   var User = app.models.User;
-
+  var Role = app.models.Role;
+  var RoleMapping = app.models.RoleMapping;
   // use res.render to load up an ejs view file
   // index page
   app.get('/', function(req, res) {
@@ -12,6 +13,20 @@ module.exports = function(app) {
 
   app.get('/register', (req, res) => {
     res.render('register');
+   });
+
+   // create provider role if it doesn't exist Already
+   Role.findOne({where: {name: 'provider'}}, function(err, req){
+     if (err) throw err;
+     if (req == null){
+
+       Role.create({
+         name: 'provider'
+       }, function(err, role) {
+         if (err) throw err;
+       });
+
+     }
    });
 
 // register a user
@@ -31,6 +46,17 @@ module.exports = function(app) {
          return;
        }
        console.log(userInstance);
+       // if he selected provider, make him a provider
+       if (req.body.select == 2){
+         Role.findOne({where: {name: 'provider'}}, function(err, role) {
+           role.principals.create({
+             principalType: RoleMapping.USER,
+             principalId: userInstance.id
+           }, function(err, principal) {
+             if (err) throw err;
+           });
+         });
+       }
        res.render('index');
      });
    });
@@ -60,14 +86,10 @@ module.exports = function(app) {
 
 
 // create dev role if it doesn't exist already
-  var Role = app.models.Role;
 
   Role.findOne({where: {name: 'dev'}}, function(err, req){
     if (err) throw err;
     if (req == null){
-
-      var Role = app.models.Role;
-      var RoleMapping = app.models.RoleMapping;
 
       User.find({where: {or: [{email: 'alex.pachos1@gmail.com'}, {email: 'miltos503@gmail.com'}, {email: 'aliki.mat@gmail.com'}, {email: 'fotinidelig@gmail.com'}, {email: 'stzesiades@gmail.com'}, {email: 'lykmast@gmail.com'}]}},
         function(err, team){
@@ -98,7 +120,6 @@ module.exports = function(app) {
     }
 
   });
-
 
 
 };
