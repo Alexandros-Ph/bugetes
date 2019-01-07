@@ -58,7 +58,7 @@ a:focus {
 
 a:hover {
 	text-decoration: none;
-  color: #57b846;
+  color: #EAB66D;
 }
 
 /*---------------------------------------------*/
@@ -534,4 +534,33 @@ input[type="radio"]:checked + label::after {
     visibility: visible;
     opacity: 1;
   }
+}
+
+
+/* HOME PAGE --------------------------------------*/
+#mainNav{
+  box-shadow: 0px 1px 10px -2px rgba(0, 0, 0, 0.5);
+}
+
+#logo_wrap{
+  position: absolute;
+}
+
+#logo{
+  position: relative;
+  z-index: 2;
+  width:100px;
+  margin-top:50px;
+  background-color: #f2f2f2;
+  text-align: center;
+}
+
+.link-3{
+  transition: 0.3s ease;
+  font-size: 16px;
+}
+
+.link-3:hover {
+  border-bottom: 4px solid #EAB66D !important;
+  padding: 6px 0;
 }

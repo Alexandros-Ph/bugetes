@@ -11,8 +11,6 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
@@ -23,17 +21,43 @@
 </head>
 <body>
 
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-        <span class="login100-form-title">
+	<nav class="navbar navbar-expand-lg navbar-white bg-white fixed-top" id="mainNav">
+		<div class="container">
+			<a class="navbar-brand js-scroll-trigger" href="#" id="logo_wrap"> <img src="/images/homemade.jpg" alt="" id="logo"> </a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger link-3" href="#">Active</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger link-3" href="#">History</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger link-3" style="margin-left:50px" href="/logout?access_token=<%=accessToken%>">Log out</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="row" style="margin-top:400px">
+			<div class="col-lg-8 mx-auto">
+				<span class="login100-form-title">
           Home Page
         </span>
 				<p><span style="font-weight:bold">e-mail: </span><%=email %> <br><span style="font-weight:bold">token: </span><%=accessToken%></p>
-				<a href="/logout?access_token=<%=accessToken%>">Log out</a>
+
 			</div>
 		</div>
 	</div>
+
+
+
+
 
 
 
@@ -47,11 +71,6 @@
 	<script src="vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/tilt/tilt.jquery.min.js"></script>
-	<script >
-		$('.js-tilt').tilt({
-			scale: 1.1
-		})
-	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 
