@@ -61,7 +61,7 @@ module.exports = function(app) {
      });
    });
 
-// login a user
+// log in a user
   app.post('/login', function(req, res) {
     User.login({
       email: req.body.email,
@@ -121,5 +121,13 @@ module.exports = function(app) {
 
   });
 
+// log out a user
+  app.get('/logout', function(req, res, next) {
+    if (!req.accessToken) return res.sendStatus(401); //return 401:unauthorized if accessToken is not present
+    User.logout(req.accessToken.id, function(err) {
+      if (err) return next(err);
+      res.redirect('/'); //on successful logout, redirect
+    });
+  });
 
 };
