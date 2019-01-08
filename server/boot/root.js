@@ -15,19 +15,6 @@ module.exports = function(app) {
     res.render('register');
    });
 
-   // create provider role if it doesn't exist Already
-   Role.findOne({where: {name: 'provider'}}, function(err, req){
-     if (err) throw err;
-     if (req == null){
-
-       Role.create({
-         name: 'provider'
-       }, function(err, role) {
-         if (err) throw err;
-       });
-
-     }
-   });
 
 // register a user
    app.post('/register', function(req, res){
@@ -85,41 +72,6 @@ module.exports = function(app) {
   });
 
 
-// create dev role if it doesn't exist already
-
-  Role.findOne({where: {name: 'dev'}}, function(err, req){
-    if (err) throw err;
-    if (req == null){
-
-      User.find({where: {or: [{email: 'alex.pachos1@gmail.com'}, {email: 'miltos503@gmail.com'}, {email: 'aliki.mat@gmail.com'}, {email: 'fotinidelig@gmail.com'}, {email: 'stzesiades@gmail.com'}, {email: 'lykmast@gmail.com'}]}},
-        function(err, team){
-
-          if (err) {
-            throw err;
-            return;
-          }
-
-          Role.create({
-            name: 'dev'
-          }, function(err, role) {
-            if (err) throw err;
-
-            //make all team devs
-            team.forEach(function(member){
-              role.principals.create({
-                principalType: RoleMapping.USER,
-                principalId: member.id
-              }, function(err, principal) {
-                if (err) throw err;
-              });
-            });
-
-          });
-      });
-
-    }
-
-  });
 
 // log out a user
   app.get('/logout', function(req, res, next) {
