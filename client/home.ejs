@@ -19,7 +19,7 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 </head>
-<body>
+<body id="home_cont">
 
 	<nav class="navbar navbar-expand-lg navbar-white bg-white fixed-top" id="mainNav">
 		<div class="container">
@@ -36,7 +36,10 @@
 						<a class="nav-link js-scroll-trigger link-3" href="#">History</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger link-3" style="margin-left:50px" href="/logout?access_token=<%=accessToken%>">Log out</a>
+						<a class="nav-link js-scroll-trigger link-3" href="#">Profile</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger link-3" href="/logout?access_token=<%=accessToken%>" id="logout">Log out</a>
 					</li>
 				</ul>
 			</div>
@@ -44,21 +47,36 @@
 	</nav>
 
 	<div class="container">
-		<div class="row" style="margin-top:400px">
-			<div class="col-lg-8 mx-auto">
-				<span class="login100-form-title">
-          Home Page
-        </span>
-				<p><span style="font-weight:bold">e-mail: </span><%=email %> <br><span style="font-weight:bold">token: </span><%=accessToken%></p>
+		<img id="title" src="/images/title2.png"></img>
 
+		<form  class="" action="javascript:void(0);">
+			<div class="row" style="margin-top:100px">
+
+				<div class="col-lg-6 mx-auto">
+					<div class="flex-form">
+      			<label for="from" id="icon">
+        			<i class="fa fa-2x fa-map-marker"></i>
+      			</label>
+      			<input type="search" placeholder="Type your location." class="text">
+					</div>
+				</div>
+
+				<div class="col-lg-6 mx-auto">
+					<div class="flex-form">
+      			<label for="from" id="icon">
+        			<i class="fa fa-2x fa-arrow-right"></i>
+      			</label>
+      			<input type="search" placeholder="Type your destination." class="text">
+					</div>
+				</div>
+				<div class="col-lg-12 mx-auto">
+					<div class="wrap_butt">
+						<button type="submit" id="sub_butt">Search</button>
+					</div>
+				</div>
 			</div>
-		</div>
+		</form>
 	</div>
-
-
-
-
-
 
 
 
