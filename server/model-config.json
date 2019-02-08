@@ -38,5 +38,25 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "Review": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Report": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Order": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Product": {
+    "dataSource": "db",
+    "public": true
+  },
+  "ProvAddress": {
+    "dataSource": "db",
+    "public": true
   }
 }
