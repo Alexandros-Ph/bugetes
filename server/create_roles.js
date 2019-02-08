@@ -6,12 +6,23 @@ var Role = app.models.Role;
 var RoleMapping = app.models.RoleMapping;
 
 // create provider role
-Role.create({
+Role.findOrCreate({
   name: 'provider'
 }, function(err) {
   if (err) throw err;
 });
 
+Role.findOrCreate({
+  name: 'user'
+}, function(err) {
+  if (err) throw err;
+});
+
+Role.findOrCreate({
+  name: 'admin'
+}, function(err) {
+  if (err) throw err;
+});
 
 // create dev role
 User.find({where: {or: [{email: 'alex.pachos1@gmail.com'}, {email: 'miltos503@gmail.com'}, {email: 'aliki.mat@gmail.com'}, {email: 'fotinidelig@gmail.com'}, {email: 'stzesiades@gmail.com'}, {email: 'lykmast@gmail.com'}]}},
@@ -22,7 +33,7 @@ User.find({where: {or: [{email: 'alex.pachos1@gmail.com'}, {email: 'miltos503@gm
       return;
     }
 
-    Role.create({
+    Role.findOrCreate({
       name: 'dev'
     }, function(err, role) {
       if (err) throw err;
@@ -31,13 +42,15 @@ User.find({where: {or: [{email: 'alex.pachos1@gmail.com'}, {email: 'miltos503@gm
       team.forEach(function(member){
 
         role.principals.create({
-          principalType: RoleMapping.USER,
+          principalType: RoleMapping.DEV,
           principalId: member.id
         }, function(err, principal) {
-          if (err) throw err;
+          if (err) {
+            throw err;
+          }
           app.dataSources.db.disconnect();
         });
       });
-
+      app.dataSources.db.disconnect();/*case no dev found,still need to close connection*/
     });
 });
