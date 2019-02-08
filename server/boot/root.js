@@ -5,6 +5,7 @@ module.exports = function(app) {
   var User = app.models.User;
   var Role = app.models.Role;
   var RoleMapping = app.models.RoleMapping;
+  var Address = app.models.ProvAddress;
   // use res.render to load up an ejs view file
   // index page
   app.get('/', function(req, res) {
@@ -37,11 +38,29 @@ module.exports = function(app) {
        if (req.body.select == 2){
          Role.findOne({where: {name: 'provider'}}, function(err, role) {
            role.principals.create({
-             principalType: RoleMapping.USER,
+             principalType: RoleMapping.PROVIDER,
              principalId: userInstance.id
            }, function(err, principal) {
              if (err) throw err;
            });
+         });
+         //from fields of registration respectively
+         user.hasAddress.create({
+            city:req.body.city,
+            street:req.body.street,
+            number:req.body.number,
+            // from string city+street+num 
+            //location: result from plugin
+         });
+       }
+       if (req.body.select == 1){
+         Role.findOne({where: {name: 'user'}}, function(err, role) {
+           role.principals.create({
+             principalType: RoleMapping.USER,
+             principalId: userInstance.id
+           }, function(err, principal) {
+             if (err) throw err;
+           })
          });
        }
        res.render('index');
