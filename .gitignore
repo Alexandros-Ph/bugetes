@@ -15,5 +15,9 @@
 .project
 .strong-pm
 coverage
-node_modules
 npm-debug.log
+node_modules/*
+!node_modules/loopback/
+node_modules/loopback/*
+!node_modules/loopback/common/
+
