@@ -1,5 +1,5 @@
 {
-  "name": "P rovAddress",
+  "name": "ProvAddress",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
