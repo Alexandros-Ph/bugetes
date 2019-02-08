@@ -1,0 +1,36 @@
+{
+  "name": "P rovAddress",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "city": {
+      "type": "string",
+      "required": true
+    },
+    "street": {
+      "type": "string",
+      "required": true
+    },
+    "number": {
+      "type": "string",
+      "required": true
+    },
+    "location": {
+      "type": "geopoint",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "provider":{
+      "type":"belongsTo",
+      "model":"User",
+      "foreignKey":"userId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
