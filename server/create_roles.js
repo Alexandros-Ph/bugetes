@@ -51,9 +51,6 @@ User.find({where: {or: [{email: 'alex.pachos1@gmail.com'}, {email: 'miltos503@gm
           app.dataSources.db.disconnect();
         });
       });
-      if(app.dataSources.db.state!='disconnected'){
-        app.dataSources.db.disconnect();
-      }
     });
 });
 
