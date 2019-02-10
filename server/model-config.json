@@ -55,7 +55,7 @@
     "dataSource": "db",
     "public": true
   },
-  "ProvAddress": {
+  "Location": {
     "dataSource": "db",
     "public": true
   }

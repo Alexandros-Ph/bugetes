@@ -258,6 +258,13 @@ iframe {
   padding: 0 30px 0 68px;
 }
 
+#loc{
+  display: none;
+}
+
+#control_02:checked ~ #loc{
+  display: block;
+}
 
 /*------------------------------------------------------------------
 [ Focus ]*/

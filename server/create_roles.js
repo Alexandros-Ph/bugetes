@@ -13,12 +13,6 @@ Role.findOrCreate({
 });
 
 Role.findOrCreate({
-  name: 'user'
-}, function(err) {
-  if (err) throw err;
-});
-
-Role.findOrCreate({
   name: 'admin'
 }, function(err) {
   if (err) throw err;
@@ -42,7 +36,7 @@ User.find({where: {or: [{email: 'alex.pachos1@gmail.com'}, {email: 'miltos503@gm
       team.forEach(function(member){
 
         role.principals.create({
-          principalType: RoleMapping.DEV,
+          principalType: RoleMapping.USER,
           principalId: member.id
         }, function(err, principal) {
           if (err) {
@@ -53,4 +47,3 @@ User.find({where: {or: [{email: 'alex.pachos1@gmail.com'}, {email: 'miltos503@gm
       });
     });
 });
-
