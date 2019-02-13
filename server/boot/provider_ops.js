@@ -7,7 +7,7 @@
 
 module.exports = function(app) {
 
-  var Provider = app.models.Provider;
+  var Provider = app.models.User;
   var Product = app.models.Product;
   const moment = require('moment');
   const date = moment();
