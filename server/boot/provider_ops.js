@@ -51,19 +51,30 @@ module.exports = function(app) {
    });
 
    app.post('/product_edit', function(req, res){
-     Product.find({where :{ productId: req.productId}
-       }, function(err, productInstance) {
-         productInstance.amount: req.body.amount
-         if (err) {
-           res.render('response', { //render view named 'response.ejs'
-             title: 'Product edit failed',
-             content: err.message,
-             redirectTo: '/product_edit',
-             redirectToLinkText: 'Try again'
-           });
-           return;
-         }
-         console.log(productInstance);
-         res.render('provider_home');
+     Product.findById(req.productId, function(find_err, productInstance){
+		if (find_err) {
+		   res.render('response', { //render view named 'response.ejs'
+			 title: 'Product edit failed',
+			 content: find_err.message,
+			 redirectTo: '/product_edit',
+			 redirectToLinkText: 'Try again'
+		   });
+		   return;
+		}
+    	productInstance.updateAttribute("amount", req.body.amount,
+		function(update_err,updated){
+			if (update_err) {
+              res.render('response', { //render view named 'response.ejs'
+                title: 'Product edit failed',
+                content: update_err.message,
+                redirectTo: '/product_edit',
+                redirectToLinkText: 'Try again'
+              });
+              return;
+            }
+		});
+        console.log(productInstance);
+        res.render('provider_home');
        });
    });
+}
