@@ -26,7 +26,7 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger link-3" href="#">Active</a>
+						<a class="nav-link js-scroll-trigger link-3" href="#">Statistics</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link js-scroll-trigger link-3" href="#">History</a>
@@ -42,38 +42,53 @@
 		</div>
 	</nav>
 
-	<div class="container">
-		<img id="title" src="/images/title2.png"></img>
+  <div class="wrap_inline">
+	  <div class="card_div">
+      <form class="validate-form add_form" id="login_form" action="/add_prod" method="post">
+        <span class="login100-form-title">
+          Product details
+        </span>
 
-		<form  class="" action="javascript:void(0);">
-			<div class="row" style="margin-top:100px">
+        <div class="wrap_field" data-validate = "Valid title is required e.x: Pastitsio">
+          <input class="field" type="text" name="title" placeholder="Title" required>
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-hashtag" aria-hidden="true"></i>
+          </span>
+        </div>
 
-				<div class="col-lg-6 mx-auto">
-					<div class="flex-form">
-      			<label for="from" id="icon">
-        			<i class="fa fa-2x fa-map-marker"></i>
-      			</label>
-      			<input type="search" placeholder="Type your location." class="text">
-					</div>
-				</div>
+        <div class="wrap_field">
+          <input class="field" type="text" name="description" placeholder="Description">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-file-text" aria-hidden="true"></i>
+          </span>
+        </div>
 
-				<div class="col-lg-6 mx-auto">
-					<div class="flex-form">
-      			<label for="from" id="icon">
-        			<i class="fa fa-2x fa-arrow-right"></i>
-      			</label>
-      			<input type="search" placeholder="Type your destination." class="text">
-					</div>
-				</div>
-				<div class="col-lg-12 mx-auto">
-					<div class="wrap_butt">
-						<button type="submit" id="sub_butt">Search</button>
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
+        <div class="wrap_field">
+          <input class="field" type="number" min="1" name="amount" placeholder="Amount" required>
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i>
+          </span>
+        </div>
 
+        <div class="wrap_field">
+          <input class="field" type="number" min="15" max="120" name="expire" placeholder="Expire time (mins)" required>
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-clock-o" aria-hidden="true"></i>
+          </span>
+        </div>
+
+        <div class="container-login100-form-btn">
+          <button type="submit" class="butt_sub">
+            Add product
+          </button>
+        </div>
+      </form>
+	  </div>
+  </div>
 
 
 <!--===============================================================================================-->
