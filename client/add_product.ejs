@@ -44,7 +44,7 @@
 
   <div class="wrap_inline">
 	  <div class="card_div">
-      <form class="validate-form add_form" id="login_form" action="/add_prod" method="post">
+      <form class="validate-form add_form" id="login_form" action="/add" method="post">
         <span class="login100-form-title">
           Product details
         </span>
@@ -80,6 +80,8 @@
             <i class="fa fa-clock-o" aria-hidden="true"></i>
           </span>
         </div>
+
+				<input class="field" type="text" name="token" value="<%=accessToken%>" style="display:none">
 
         <div class="container-login100-form-btn">
           <button type="submit" class="butt_sub">

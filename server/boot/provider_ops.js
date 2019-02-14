@@ -10,19 +10,19 @@ module.exports = function(app) {
 	var Token = app.models.AccessToken;
 	var Provider = app.models.User;
 	var Product = app.models.Product;
-	const moment = require('moment');
-	const date = moment();
 	var url = require('url');
 
-	// app.get('/add_product', function(req, res) {
-	//     res.render('product_create' ,{
-	//        accessToken: req.accessToken
-	//      });
-	// });
+
+	app.get('/add', function(req, res) {
+    if (!req.accessToken) return res.sendStatus(401); //return 401:unauthorized if accessToken is not present
+    res.render('add_product', {
+      accessToken: req.accessToken.id
+    });
+   });
 
 	// create a product
-	app.post('/add_prod', function(req, res){
-		Token.find({where :{ id: req.accessToken}
+	app.post('/add', function(req, res){
+		Token.findOne({where :{ id: req.body.token}
 		}, function(token_err, tokenInstance){
 			if(token_err){
 				res.render('response', { //render view named 'response.ejs'
@@ -33,7 +33,7 @@ module.exports = function(app) {
 				});
 				return;
 			}
-			Provider.find({where :{ userId: tokenInstance.userId}
+			Provider.findOne({where :{ id: tokenInstance.userId}
 			}, function(find_err,providerInstance){
 				if (find_err) {
 					res.render('response', { //render view named 'response.ejs'
@@ -49,7 +49,7 @@ module.exports = function(app) {
 					description: req.body.description,
 					amount: req.body.amount,
 					expiredAfter: req.body.expiredAfter,
-					userId: providerInstance.userId
+					userId: providerInstance.id
 				}, function(err, productInstance) {
 					if (err) {
 						res.render('response', { //render view named 'response.ejs'
@@ -61,7 +61,7 @@ module.exports = function(app) {
 						return;
 					}
 					console.log(productInstance);
-					res.render('prov_home',{accessToken: req.accessToken});
+					res.render('prov_home',{accessToken: req.body.token});
 				});
 			});
 		});

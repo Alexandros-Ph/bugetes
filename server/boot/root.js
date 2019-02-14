@@ -87,20 +87,13 @@ module.exports = function(app) {
                   email: req.body.email,
                   accessToken: token.id
                 });
-              }              
+              }
             });
           });
         });
     });
   });
 
-  app.get('/add', function(req, res) {
-    if (!req.accessToken) return res.sendStatus(401); //return 401:unauthorized if accessToken is not present
-    res.render('add_product', {
-      accessToken: req.accessToken.id
-    });
-      console.log(req.accessToken.id);
-   });
 
 // log out a user
   app.get('/logout', function(req, res, next) {
