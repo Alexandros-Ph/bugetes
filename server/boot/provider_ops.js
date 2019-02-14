@@ -1,17 +1,8 @@
-// needs front end files:
-// provider_home with
-// 	link to product_create where new product can be created
-// 	view of all active products and
-// 		links to product_edit for each one of them
-
-
 module.exports = function(app) {
 
 	var Token = app.models.AccessToken;
 	var Provider = app.models.User;
 	var Product = app.models.Product;
-	var url = require('url');
-
 
 	app.get('/add', function(req, res) {
     if (!req.accessToken) return res.sendStatus(401); //return 401:unauthorized if accessToken is not present
@@ -22,8 +13,7 @@ module.exports = function(app) {
 
 	// create a product
 	app.post('/add', function(req, res){
-		Token.findOne({where :{ id: req.body.token}
-		}, function(token_err, tokenInstance){
+		Token.findById(req.body.token, function(token_err, tokenInstance){
 			if(token_err){
 				res.render('response', { //render view named 'response.ejs'
 					title: 'Product creation failed',
@@ -33,8 +23,7 @@ module.exports = function(app) {
 				});
 				return;
 			}
-			Provider.findOne({where :{ id: tokenInstance.userId}
-			}, function(find_err,providerInstance){
+			Provider.findById(tokenInstance.userId, function(find_err,providerInstance){
 				if (find_err) {
 					res.render('response', { //render view named 'response.ejs'
 						title: 'Product creation failed',
