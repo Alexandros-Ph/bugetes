@@ -12,7 +12,7 @@ module.exports = function(app) {
       res.render('index');
   });
 
-  app.get('/register', (req, res) => {
+  app.get('/register', function(req, res) {
     res.render('register');
    });
 
@@ -70,15 +70,37 @@ module.exports = function(app) {
         });
         return;
       }
-
-      res.render('home', { //login user and render 'home' view
-        email: req.body.email,
-        accessToken: token.id
-      });
+      User.findOne({where: {email: req.body.email}}, function(err, user) {    //find user's id
+        if (err) throw err;
+        RoleMapping.findOne({where: {principalId: user.id}}, function(fal, map){
+          if (fal) throw fal;
+          Role.findOne({where: {id: map.roleId}}, function(no, obj) {
+            if (no) throw no;
+              if (obj.name == 'provider'){
+                res.render('prov_home', {             //login provider and render 'prov_home' view
+                  email: req.body.email,
+                  accessToken: token.id
+                });
+              }
+              else{
+                res.render('home', {                   //login user and render 'home' view
+                  email: req.body.email,
+                  accessToken: token.id
+                });
+              }              
+            });
+          });
+        });
     });
   });
 
-
+  app.get('/add', function(req, res) {
+    if (!req.accessToken) return res.sendStatus(401); //return 401:unauthorized if accessToken is not present
+    res.render('add_product', {
+      accessToken: req.accessToken.id
+    });
+      console.log(req.accessToken.id);
+   });
 
 // log out a user
   app.get('/logout', function(req, res, next) {

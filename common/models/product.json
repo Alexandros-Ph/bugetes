@@ -8,11 +8,15 @@
   "properties": {
     "createdAt": {
       "type": "date",
+      "required": false
+    },
+    "title": {
+      "type": "string",
       "required": true
     },
     "description": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "amount": {
       "type": "number",
