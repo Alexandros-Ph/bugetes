@@ -15,7 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 </head>
-<body id="home_cont">
+<body class="gray_back">
 
 	<nav class="navbar navbar-expand-lg navbar-white bg-white fixed-top" id="mainNav">
 		<div class="container">
@@ -42,37 +42,41 @@
 		</div>
 	</nav>
 
-	<div class="container">
-		<img id="title" src="/images/title2.png"></img>
-
-		<form  class="" action="/search" method="post">
-			<div class="row" style="margin-top:100px">
-
-				<div class="col-lg-6 mx-auto">
-					<div class="flex-form">
-      			<label for="from" id="icon">
-        			<i class="fa fa-2x fa-map-marker"></i>
-      			</label>
-      			<input type="search" placeholder="Type your location." class="text" name="location">
+	<div >
+			<h1 style="padding-top:120px; text-align:center">Αποτελέσματα αναζήτησης</h1>
+			<div class="row">
+				<div class="col-lg-2 mx-auto marg" style="padding-right:0px !important;">
+					<div class="wrap_filt">
+						Φίλτρα
 					</div>
 				</div>
 
-				<div class="col-lg-6 mx-auto">
-					<div class="flex-form">
-      			<label for="from" id="icon">
-        			<i class="fa fa-2x fa-arrow-right"></i>
-      			</label>
-      			<input type="search" placeholder="Type your destination." class="text" name="destination">
-					</div>
+				<div class="col-lg-5 mx-auto marg">
+					<% foods.forEach((food) => {
+      %>
+			<div class="wrapper">
+				<div class="title">
+					<h2><%= food.title %></h2>
+					<p><%= food.description %></p><br>
+					<h5>Μερίδες: <%= food.amount %></h5>
 				</div>
-				<div class="col-lg-12 mx-auto">
-					<div class="wrap_butt">
-						<button type="submit" id="sub_butt">Search</button>
+				<div class="right">
+					<div class="cent">
+						<button type="button" id="sub_butt">Παραγγελία</button>
 					</div>
 				</div>
 			</div>
-			<input class="field" type="text" name="token" value="<%=accessToken%>" style="display:none">
-		</form>
+      <%
+    }) %>
+
+				</div>
+				<div class="col-lg-5 mx-auto marg" >
+					<div class="wrap_map">
+						Χάρτης
+					</div>
+				</div>
+
+			</div>
 	</div>
 
 

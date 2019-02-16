@@ -1,9 +1,9 @@
 module.exports = function(app) {
 	var Product = app.models.Product;
 
-	app.post('/search',function(req,res){
-		Product.find(function(err,productInstances){
-			if(err){
+	app.post('/search', function(req,res){
+		Product.find(function(err, productInstances) {
+			if(err) {
 				res.render('response', { //render view named 'response.ejs'
 					title: 'Search failed',
 					content: err.message,
@@ -12,6 +12,10 @@ module.exports = function(app) {
 				});
 				return;
 			}
+			res.render('search', {
+				foods: productInstances,
+				accessToken: req.body.token
+			})
 		});
 	});
 }
