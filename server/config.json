@@ -1,7 +1,7 @@
 {
-  "restApiRoot": "/api",
+  "restApiRoot": "/observatory/api",
   "host": "0.0.0.0",
-  "port": 3000,
+  "port": 8765,
   "remoting": {
     "context": false,
     "rest": {
