@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+    <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/libs/css/style.css">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+  	<link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
+    <link rel="stylesheet" type="text/css" href="css/user.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/user.css"> -->
+    <title>User's Dashboard</title>
+</head>
+
+<meta charset="utf-8">
+<meta name="active-menu" content="<%= menuId %>">
+
+
+<body>
+    <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+
+    <nav class="navbar navbar-expand-lg navbar-white bg-white fixed-top" id="mainNav">
+  		<div class="container">
+  			<a class="navbar-brand js-scroll-trigger" href="#" id="logo_wrap"> <img src="/images/homemade.jpg" alt="" id="logo"> </a>
+  			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+  				<span class="navbar-toggler-icon"></span>
+  			</button>
+  			<div class="collapse navbar-collapse" id="navbarResponsive">
+  				<ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger link-3" href="#">Active</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger link-3" href="#">History</a>
+            </li>
+  					<li class="nav-item">
+  						<a class="nav-link js-scroll-trigger link-3" href="#">Profile</a>
+  					</li>
+  					<li class="nav-item">
+  						<a class="nav-link js-scroll-trigger link-3" href="/logout?access_token=<%=accessToken%>" id="logout">Log out</a>
+  					</li>
+  				</ul>
+  			</div>
+  		</div>
+  	</nav>
+
+    <!-- ============================================================== -->
+    <!-- left sidebar -->
+    <!-- ============================================================== -->
+    <div class="nav-left-sidebar sidebar-dark">
+        <div class="menu-list">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <form action="" method="post">
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-divider">
+                            Filters
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Category </a>
+                        </li>
+                        <label class="container_cat">
+                        Salads
+                        <input type="checkbox" name="category[]" value="Salads">
+                        <span class="checkmark"></span></label>
+                        <label class="container_cat">
+                        Seafood/Fish
+                        <input type="checkbox" name="category[]" value="Seafood/Fish">
+                        <span class="checkmark"></span></label>
+                        <label class="container_cat">
+                        Meats
+                        <input type="checkbox" name="category[]" value="Meats">
+                        <span class="checkmark"></span></label>
+                        <label class="container_cat">
+                        Chicken
+                        <input type="checkbox" name="category[]" value="Chicken">
+                        <span class="checkmark"></span></label>
+                        <label class="container_cat">
+                        Pasta
+                        <input type="checkbox" name="category[]" value="Pasta">
+                        <span class="checkmark"></span></label>
+                        <label class="container_cat">
+                        Rice/Potatoes
+                        <input type="checkbox" name="category[]" value="Rice/Potatoes">
+                        <span class="checkmark"></span></label>
+                        <label class="container_cat">
+                        Sweets/Desserts
+                        <input type="checkbox" name="category[]" value="Sweets/Desserts">
+                        <span class="checkmark"></span></label>
+                        <label class="container_cat">
+                        Other
+                        <input type="checkbox" name="category[]" value="Other">
+                        <span class="checkmark"></span></label>
+
+                        <li class="nav-item ">
+                            <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Portions </a>
+                            <label class="container_cat">
+                            <input class="portions" type="number" name="number_ofport" value="1"></label>
+                        </li>
+                        <div class="row ">
+                            <div class="wrap_butt">
+                              <button type="reset" id="rst_butt" name="reset">Reset</button>
+                            </div>
+                            <div class="wrap_butt">
+                              <button type="submit" id="sub_butt">Submit</button>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end left sidebar -->
+    <!-- ============================================================== -->
+    <!-- <h2>Enter your Address:</h2>
+    <input type="text" id="s"  placeholder="Enter Adress" data-role="none">
+    <style>h2{position:fixed; font-size: 18px;top: 75px; left: 400px;} #s{position:fixed; top: 95px; left: 400px;}</style> -->
+
+    <!-- ============================================================== -->
+    <!-- map sidebar -->
+    <!-- ============================================================== -->
+    <div class="mapouter">
+      <div class="gmap_canvas">
+        <iframe width="400" height="700" id="gmap_canvas" src="https://maps.google.com/maps?q=athens&amp;t=&amp;z=9&amp;ie=UTF8&amp;iwloc=&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+        <!-- <a href="https://www.pureblack.de/webdesign-regensburg/"></a> -->
+      </div>
+    </div>
+
+
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/tilt/tilt.jquery.min.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</body>
+
+</html>

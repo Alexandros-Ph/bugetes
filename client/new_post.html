@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+    <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/libs/css/style.css">
+    <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+  	<link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/provider.css">
+    <title>Provider's new post</title>
+</head>
+
+<meta charset="utf-8">
+<meta name="active-menu" content="<%= menuId %>">
+
+
+<body>
+  <!-- ============================================================== -->
+  <!-- main wrapper -->
+  <!-- ============================================================== -->
+
+  <nav class="navbar navbar-expand-lg navbar-white bg-white fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="#" id="logo_wrap"> <img src="/images/homemade.jpg" alt="" id="logo"> </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger link-3" href="#">Statistics</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger link-3" href="#">History</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger link-3" href="#">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger link-3" href="/logout?access_token=<%=accessToken%>" id="logout">Log out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <form action="" method="get">
+    <div class="form-group">
+        <!-- Category : <select name="category" >
+          <option value=" "disabled selected>Select category</option>
+          <option value="Seafood/Fish">Seafood/Fish </option>
+          <option value="Meats">Meats </option>
+          <option value="Chicken">Chicken </option>
+          <option value="Pasta">Pasta </option>
+          <option value="Rice/Potatoes">Rice/Potatoes </option>
+          <option value="Sweets/Desserts">Sweets/Desserts </option>
+          <<option value="Other">Other </option>
+        </select><br><br> -->
+        Category :
+        <label class="container_cat">
+        Salads
+        <input type="checkbox" name="category[]" value="Salads">
+        <span class="checkmark"></span></label>
+        <label class="container_cat">
+        Seafood/Fish
+        <input type="checkbox" name="category[]" value="Seafood/Fish">
+        <span class="checkmark"></span></label>
+        <label class="container_cat">
+        Meats
+        <input type="checkbox" name="category[]" value="Meats">
+        <span class="checkmark"></span></label>
+        <label class="container_cat">
+        Chicken
+        <input type="checkbox" name="category[]" value="Chicken">
+        <span class="checkmark"></span></label>
+        <label class="container_cat">
+        Pasta
+        <input type="checkbox" name="category[]" value="Pasta">
+        <span class="checkmark"></span></label>
+        <label class="container_cat">
+        Rice/Potatoes
+        <input type="checkbox" name="category[]" value="Rice/Potatoes">
+        <span class="checkmark"></span></label>
+        <label class="container_cat">
+        Sweets/Desserts
+        <input type="checkbox" name="category[]" value="Sweets/Desserts">
+        <span class="checkmark"></span></label>
+        <label class="container_cat">
+        Other
+        <input type="checkbox" name="category[]" value="Other">
+        <span class="checkmark"></span></label>
+        Available Portions * : <input type="text" name="portions" placeholder="Type number of available portions" required><br><br>
+        Available Time for Delivery  (hours:mins) * : <input type="text" name="time" placeholder=" Type time limit that a customer can deliver his order, before order cancellation" required>
+        <br><br>
+        Description : <textarea rows="3" cols="60" placeholder="Describe your homemade dish (i.e. ingredients, vegeterian, spicy)" required></textarea>
+        <br><br>
+        Add image * : <img id="blah" src="#" alt=" " width="inherit" height="300"/>
+                      <input type="file" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+        <div class="row ">
+            <div class="wrap_butt">
+              <button type="reset" id="rst_butt" name="reset">Reset</button>
+            </div>
+            <div class="wrap_butt">
+              <button type="submit" id="newp_butt">Submit</button>
+            </div>
+        </div>
+      </div>
+
+</body>
+
+
+</html>
