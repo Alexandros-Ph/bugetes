@@ -1,4 +1,5 @@
 'use strict';
+var g = require('../../node_modules/loopback/lib/globalize');
 
 module.exports = function(Product) {
 	// Operation hook to handle the date info
@@ -9,17 +10,29 @@ module.exports = function(Product) {
 		}next()
 	})
 
-	Product.fetch = function(start, count, status, sort, cb){
+	Product.custom_find = function(start, count, status, sort, cb){
 		var self= this;
+		var query_withdrawn;
+		var err;
 		if(start==null){
 			start=0;
 		}
 		if(count==null){
 			count=10;
 		}
-		if(status==null){
-			status="ACTIVE";
+		if(status==null||status=="ACTIVE"){
+			query_withdrawn=false;
 		}
+		else if(status=="WITHDRAWN"){
+			query_withdrawn=true;
+		}
+		else if(status!="ALL"){
+			err = new Error(g.f('wrong argument value'));
+			err.statusCode = 400;
+			err.code = 'GET_FAILED_WRONG_ARGUMENT_VALUE';
+			cb(err);
+		}
+
 		if(sort == "id|DESC" || sort == null) sort="id DESC";
 		else{
 			switch (sort) {
@@ -32,21 +45,52 @@ module.exports = function(Product) {
 				case "id|ASC":
 					sort="id ASC";
 					break;
-				default://throw error
+				default:
+					err = new Error(g.f('wrong argument value'));
+					err.statusCode = 400;
+					err.code = 'GET_FAILED_WRONG_ARGUMENT_VALUE';
+					cb(err);
 					break;
 			}
 		}
-		self.find({limit: count, skip: start, order: sort
-			//TODO: need to add status filter and error handling
-		},function(err,productInstances){
-			self.count(function(err,total){
-				//TODO: need to add status filter and error handling
-				cb(null, start, count, total, productInstances);
+		if(status!="ALL"){
+			self.find({where:{withdrawn:query_withdrawn},limit: count, skip: start, order: sort
+			},function(err,productInstances){
+				self.count(function(err,total){
+					cb(null, start, count, total, productInstances);
+				});
 			});
+		}
+		else{
+			self.find({limit: count, skip: start, order: sort
+			},function(err,productInstances){
+				self.count(function(err,total){
+					productInstances.forEach(function(element){
+						element.tags=element.tags.split(",");
+					});
+					cb(null, start, count, total, productInstances);
+				});
+			});
+		}
+	}
+
+	Product.custom_create=function(data,cb){
+		var self=this;
+		data.tags=data.tags.join(",");
+		self.create(data,function(err,inst){
+			if(err){
+				err = new Error(g.f('wrong argument value'));
+				err.statusCode = 400;
+				err.code = 'GET_FAILED_WRONG_ARGUMENT_VALUE';
+				cb(err);
+			}
+			else{
+				cb(null,inst);
+			}
 		});
 	}
 
-	Product.remoteMethod('fetch',{
+	Product.remoteMethod('custom_find',{
 		accepts: [
 			{arg: 'start', type: 'number', http: {source: 'query'}},
 			{arg: 'count', type: 'number', http: {source: 'query'}},
@@ -60,5 +104,15 @@ module.exports = function(Product) {
 			{arg: 'products', type:'array'}
 		],
 		http: {path: '/', verb: 'get'}
+	});
+
+	Product.remoteMethod('custom_create',{
+		accepts: [
+			{arg: 'start', type: 'number', http: {source: 'query'}},
+			{arg: 'count', type: 'number', http: {source: 'query'}},
+			{arg: 'status', type: 'string', http: {source: 'query'}},
+			{arg: 'sort', type: 'string', http: {source: 'query'}}
+		],
+		returns:{arg: 'product'}
 	});
 };
