@@ -1,0 +1,50 @@
+{
+  "name": "Price",
+  "description": "Contains all data that are different between product posts",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "price": {
+      "type": "number",
+      "required": true
+    },
+    "dateFrom": {
+      "type": "date",
+      "required": false
+    },
+    "dateTo": {
+      "type": "date",
+      "required": false
+    },
+    "description": {
+      "type": "string",
+      "required": false
+    },
+    "amount": {
+      "type": "number",
+      "required": true
+    },
+    "expiredAfter": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "provider": {
+      "type": "belongsTo",
+      "model": "User",
+      "foreignKey": "userId"
+    },
+    "product": {
+      "type": "belongsTo",
+      "model": "Product",
+      "foreignKey": "productId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

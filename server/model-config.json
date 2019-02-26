@@ -53,6 +53,10 @@
   },
   "Product": {
     "dataSource": "db",
+    "public": true
+  },
+  "Price": {
+    "dataSource": "db",
     "public": true,
     "options": {
       "remoting": {
@@ -62,7 +66,7 @@
       }
     }
   },
-  "Location": {
+  "ProviderPlus": {
     "dataSource": "db",
     "public": true
   }

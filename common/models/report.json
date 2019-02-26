@@ -16,6 +16,11 @@
     "provider": {
       "type": "belongsTo",
       "model": "User",
+      "foreignKey": "provId"
+    },
+    "user": {
+      "type": "belongsTo",
+      "model": "User",
       "foreignKey": "userId"
     }
   },

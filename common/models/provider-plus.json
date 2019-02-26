@@ -1,5 +1,5 @@
 {
-  "name": "Location",
+  "name": "ProviderPlus",
   "description": "Maps addresses to providers",
   "base": "PersistedModel",
   "idInjection": true,
@@ -9,6 +9,22 @@
   "properties": {
     "address": {
       "type": "string",
+      "required": true
+    },
+    "location": {
+      "type": "GeoPoint",
+      "required": false
+    },
+    "code": {
+      "type": "number",
+      "required": false
+    },
+    "tags": {
+      "type": "string",
+      "required": false
+    },
+    "withdrawn": {
+      "type": "Boolean",
       "required": true
     }
   },

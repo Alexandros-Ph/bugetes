@@ -1,43 +1,41 @@
 {
   "name": "Product",
+  "description": "Base product same for every provider",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "createdAt": {
-      "type": "date",
+    "code": {
+      "type": "number",
       "required": false
     },
-    "title": {
+    "name": {
       "type": "string",
       "required": true
     },
-    "description": {
+    "category": {
+      "type": "string",
+      "required": true
+    },
+    "tags": {
       "type": "string",
       "required": false
     },
-    "amount": {
-      "type": "number",
-      "required": true
-    },
-    "expiredAfter": {
-      "type": "number",
+    "withdrawn": {
+      "type": "Boolean",
       "required": true
     }
   },
   "validations": [],
   "relations": {
-    "provider": {
-      "type": "belongsTo",
-      "model": "User",
-      "foreignKey": "userId"
-    },
-    "order": {
+    "price": {
       "type": "hasMany",
-      "model": "Order",
-      "foreignKey": "productId"
+      "model": "Price",
+      "options": {
+        "nestRemoting": true
+      }
     }
   },
   "acls": [],

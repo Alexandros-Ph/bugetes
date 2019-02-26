@@ -18,8 +18,8 @@
   "relations": {
     "provider": {
       "type": "belongsTo",
-      "model": "user",
-      "foreignKey": "userId"
+      "model": "User",
+      "foreignKey": "provId"
     },
     "user": {
       "type": "belongsTo",
