@@ -89,7 +89,7 @@ module.exports = function(Product) {
 			}
 		});
 	}
-
+/*
 	Product.remoteMethod('custom_find',{
 		accepts: [
 			{arg: 'start', type: 'number', http: {source: 'query'}},
@@ -114,5 +114,5 @@ module.exports = function(Product) {
 			{arg: 'sort', type: 'string', http: {source: 'query'}}
 		],
 		returns:{arg: 'product'}
-	});
+	}); */
 };

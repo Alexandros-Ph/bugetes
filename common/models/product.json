@@ -7,11 +7,11 @@
     "validateUpsert": true
   },
   "properties": {
-    "code": {
-      "type": "number",
-      "required": false
-    },
     "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
       "type": "string",
       "required": true
     },
@@ -20,12 +20,13 @@
       "required": true
     },
     "tags": {
-      "type": "string",
-      "required": false
+      "type": "array",
+      "required": true
     },
     "withdrawn": {
       "type": "Boolean",
-      "required": true
+      "required": false,
+      "default": false
     }
   },
   "validations": [],

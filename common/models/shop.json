@@ -1,31 +1,36 @@
 {
-  "name": "ProviderPlus",
-  "description": "Maps addresses to providers",
+  "name": "Shop",
+  "description": "Extra info for providers",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
     "address": {
       "type": "string",
       "required": true
     },
-    "location": {
-      "type": "GeoPoint",
-      "required": false
-    },
-    "code": {
+    "lng": {
       "type": "number",
-      "required": false
+      "required": true
+    },
+    "lat": {
+      "type": "number",
+      "required": true
     },
     "tags": {
-      "type": "string",
-      "required": false
+      "type": "array",
+      "required": true
     },
     "withdrawn": {
       "type": "Boolean",
-      "required": true
+      "required": true,
+      "default": false
     }
   },
   "validations": [],

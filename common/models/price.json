@@ -25,19 +25,19 @@
     },
     "amount": {
       "type": "number",
-      "required": true
+      "required": false
     },
     "expiredAfter": {
       "type": "number",
-      "required": true
+      "required": false
     }
   },
   "validations": [],
   "relations": {
-    "provider": {
+    "shop": {
       "type": "belongsTo",
-      "model": "User",
-      "foreignKey": "userId"
+      "model": "Shop",
+      "foreignKey": "shopId"
     },
     "product": {
       "type": "belongsTo",
