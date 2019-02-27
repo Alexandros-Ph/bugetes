@@ -56,9 +56,10 @@
       %>
 			<div class="wrapper">
 				<div class="title">
-					<h2><%= food.title %></h2>
-					<p><%= food.description %></p><br>
+					<h2><%= food.product.name %></h2>
+					<p><%= food.product.description %></p>
 					<h5>Μερίδες: <%= food.amount %></h5>
+					<h5>Τιμή: <%= food.price %>€</h5>
 				</div>
 				<div class="right">
 					<div class="cent">

@@ -619,9 +619,7 @@ input[type="radio"]:checked + label::after {
   border-radius: 7px;
   padding: 0 30px;
   cursor: pointer;
-  -webkit-transition: all 0.2s;
-  -moz-transition: all 0.2s;
-  transition: all 0.3s;
+
 }
 
 #sub_butt:hover {
@@ -725,7 +723,7 @@ input[type="search"] {
     width: 100%;
     height: 60px;
     border-radius: 25px;
-    background: #57b846;
+    background: #17aa56;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -738,6 +736,10 @@ input[type="search"] {
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
     transition: all 0.4s;
+}
+
+.butt_sub:hover{
+  background: #0c7339;
 }
 
 /* --------- SEARCH PAGE ---------- */
