@@ -3,6 +3,7 @@ module.exports = function(app) {
 	var Token = app.models.AccessToken;
 	var Provider = app.models.User;
 	var Product = app.models.Product;
+	var Price = app.models.Price;
 
 	app.get('/add', function(req, res) {
     if (!req.accessToken) return res.sendStatus(401); //return 401:unauthorized if accessToken is not present
@@ -15,46 +16,71 @@ module.exports = function(app) {
 	app.post('/add', function(req, res){
 		Token.findById(req.body.token, function(token_err, tokenInstance){
 			if(token_err){
-				res.render('response', { //render view named 'response.ejs'
-					title: 'Product creation failed',
+				res.render('response', { 								//render view named 'response.ejs'
+					title: 'Token error on product creation',
 					content: token_err.message,
-					redirectTo: '/add_prod',
+					redirectTo: '/add',
 					redirectToLinkText: 'Try again'
 				});
 				return;
 			}
-			Provider.findById(tokenInstance.userId, function(find_err,providerInstance){
+			Provider.findById(tokenInstance.userId, function(find_err, providerInstance){			// find provider through token
 				if (find_err) {
-					res.render('response', { //render view named 'response.ejs'
+					res.render('response', { 							//render view named 'response.ejs'
 						title: 'Product creation failed',
 						content: find_err.message,
-						redirectTo: '/add_product',
+						redirectTo: '/add',
 						redirectToLinkText: 'Try again'
 					});
 					return;
 				}
-				Product.create({
-					title: req.body.title,
+				Product.findOrCreate({									// check if product exists and if it doesn't, create it
+					where: {name: req.body.title}
+				}, {
+					name: req.body.title,
 					description: req.body.description,
-					amount: req.body.amount,
-					expiredAfter: req.body.expiredAfter,
-					userId: providerInstance.id
+					category: req.body.category,
+					tags: req.body.tags,
+					//userId: providerInstance.id
 				}, function(err, productInstance) {
 					if (err) {
-						res.render('response', { //render view named 'response.ejs'
+						res.render('response', { 						//render view named 'response.ejs'
 							title: 'Product creation failed',
 							content: err.message,
-							redirectTo: '/add_product',
+							redirectTo: '/add',
 							redirectToLinkText: 'Try again'
 						});
 						return;
 					}
 					console.log(productInstance);
-					res.render('prov_home',{accessToken: req.body.token});
+					Price.create({										    // create price instance
+						price: req.body.price,
+						amount: req.body.amount,
+						productId: productInstance.id,
+						userId: providerInstance.id
+					}, function(pr_error, priceInstance) {
+						if (pr_error) {
+							res.render('response', { 				  //render view named 'response.ejs'
+								title: 'Price creation failed',
+								content: err.message,
+								redirectTo: '/add',
+								redirectToLinkText: 'Try again'
+							});
+							return;
+						}
+					console.log(priceInstance);
+					res.render('response', { 							//render view named 'response.ejs'
+						title: 'Product created!',
+						content: "Your new product should appear in your active list",
+						redirectTo: '/prov_home?access_token='+req.body.token,					// redirect to provider home page
+						redirectToLinkText: 'Done'
+					});
+
 				});
 			});
 		});
 	});
+});
 
 	app.get('/product_edit', function(req, res) {
 		res.render('product_edit' ,{

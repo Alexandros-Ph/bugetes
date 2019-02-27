@@ -34,6 +34,11 @@
   },
   "validations": [],
   "relations": {
+    "provider": {
+      "type": "belongsTo",
+      "model": "User",
+      "foreignKey": "userId"
+    },
     "shop": {
       "type": "belongsTo",
       "model": "Shop",

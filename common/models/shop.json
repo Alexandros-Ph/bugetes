@@ -17,15 +17,15 @@
     },
     "lng": {
       "type": "number",
-      "required": true
+      "required": false
     },
     "lat": {
       "type": "number",
-      "required": true
+      "required": false
     },
     "tags": {
       "type": "array",
-      "required": true
+      "required": false
     },
     "withdrawn": {
       "type": "Boolean",

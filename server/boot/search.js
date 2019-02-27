@@ -1,8 +1,8 @@
 module.exports = function(app) {
-	var Product = app.models.Product;
+	var Price = app.models.Price;
 
 	app.post('/search', function(req,res){
-		Product.find(function(err, productInstances) {
+		Price.find({include: ['product']}, function(err, foodInstances) {
 			if(err) {
 				res.render('response', { //render view named 'response.ejs'
 					title: 'Search failed',
@@ -12,8 +12,13 @@ module.exports = function(app) {
 				});
 				return;
 			}
+			var food_array = [];
+			foodInstances.forEach(function(food) {
+   			var temp = food.toJSON();
+   			food_array.push(temp);
+ 		});
 			res.render('search', {
-				foods: productInstances,
+				foods: food_array,
 				accessToken: req.body.token
 			})
 		});

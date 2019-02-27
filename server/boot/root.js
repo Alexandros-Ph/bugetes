@@ -94,10 +94,17 @@ module.exports = function(app) {
     });
   });
 
+  app.get('/prov_home', function(req, res, next) {            // ONLY WORKS FOR PROVIDER, MUST IMPLEMENT USER
+    if (!req.accessToken) return res.sendStatus(401);         //return 401:unauthorized if accessToken is not present
+    res.render('prov_home', {                                 // render 'prov_home' view
+      accessToken: req.accessToken.id
+    });
+  });
+
 
 // log out a user
   app.get('/logout', function(req, res, next) {
-    if (!req.accessToken) return res.sendStatus(401); //return 401:unauthorized if accessToken is not present
+    if (!req.accessToken) return res.sendStatus(401);         //return 401:unauthorized if accessToken is not present
     User.logout(req.accessToken.id, function(err) {
       if (err) return next(err);
       res.redirect('/'); //on successful logout, redirect
