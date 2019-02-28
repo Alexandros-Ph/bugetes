@@ -1,5 +1,11 @@
 /* ------------ User -------------*/
 /* Customize the label (the container) */
+.filters{
+  background: white;
+  box-shadow: 0px 1px 10px -2px rgba(0, 0, 0, 0.5);
+  
+}
+
 label{
   width: 30px;
   border:none;
@@ -81,7 +87,7 @@ input[type=number]{
   font-size: 16px;
   padding: 6px 10px;
   border-radius: 4px;
-  background-color: #f1f1f1;
+  background-color: rgba(195, 195, 195, 0.3);;
 }
 
 /* Create a custom checkbox */
@@ -130,7 +136,8 @@ input[type=number]{
 
 /* Reset Button */
 #rst_butt {
-  margin-left: 10px;
+  width: 100px;
+  margin-left: 35px;
   font-size: 16px;
   line-height: 42px;
   background: #17aa56;
@@ -150,8 +157,9 @@ input[type=number]{
 }
 
 /* Submit Button*/
-#sub_butt {
-  margin-left: 60px;
+#sub2_butt {
+  width: 100px;
+  margin-left: 30px;
   font-size: 16px;
   line-height: 42px;
   background: #17aa56;
@@ -165,7 +173,7 @@ input[type=number]{
   transition: all 0.3s;
 }
 
-#sub_butt:hover {
+#sub2_butt:hover {
   margin-top:4px;
   box-shadow: 0 2px #119e4d;
 }

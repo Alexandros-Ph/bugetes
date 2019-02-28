@@ -13,6 +13,7 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/user.css">
 <!--===============================================================================================-->
 </head>
 <body class="gray_back">
@@ -42,13 +43,79 @@
 		</div>
 	</nav>
 
+
 	<div >
 			<h1 style="padding-top:120px; text-align:center">Αποτελέσματα αναζήτησης</h1>
 			<div class="row">
-				<div class="col-lg-2 mx-auto marg" style="padding-right:0px !important;">
-					<div class="wrap_filt">
-						Φίλτρα
-					</div>
+				<div class="col-lg-2 mx-auto filters" style="padding-right:0px !important;">
+					<div class="nav-left-sidebar sidebar-dark">
+			        <div class="menu-list">
+			            <nav class="navbar navbar-expand-lg navbar-light">
+			                <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+			                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			                    <span class="navbar-toggler-icon"></span>
+			                </button>
+			                <form action="" method="post">
+
+			                <div class="collapse navbar-collapse" id="navbarNav">
+			                    <ul class="navbar-nav flex-column">
+			                        <li class="nav-divider">
+			                            Filters
+			                        </li>
+			                        <li class="nav-item ">
+			                            <a class="nav-link" href="#"><i class="fa fa-fw fa-filter"></i>Category </a>
+			                        </li>
+			                        <label class="container_cat">
+			                        Salads
+			                        <input type="checkbox" name="category[]" value="Salads">
+			                        <span class="checkmark"></span></label>
+			                        <label class="container_cat">
+			                        Seafood/Fish
+			                        <input type="checkbox" name="category[]" value="Seafood/Fish">
+			                        <span class="checkmark"></span></label>
+			                        <label class="container_cat">
+			                        Meats
+			                        <input type="checkbox" name="category[]" value="Meats">
+			                        <span class="checkmark"></span></label>
+			                        <label class="container_cat">
+			                        Chicken
+			                        <input type="checkbox" name="category[]" value="Chicken">
+			                        <span class="checkmark"></span></label>
+			                        <label class="container_cat">
+			                        Pasta
+			                        <input type="checkbox" name="category[]" value="Pasta">
+			                        <span class="checkmark"></span></label>
+			                        <label class="container_cat">
+			                        Rice/Potatoes
+			                        <input type="checkbox" name="category[]" value="Rice/Potatoes">
+			                        <span class="checkmark"></span></label>
+			                        <label class="container_cat">
+			                        Sweets/Desserts
+			                        <input type="checkbox" name="category[]" value="Sweets/Desserts">
+			                        <span class="checkmark"></span></label>
+			                        <label class="container_cat">
+			                        Other
+			                        <input type="checkbox" name="category[]" value="Other">
+			                        <span class="checkmark"></span></label>
+
+			                        <li class="nav-item ">
+			                            <a class="nav-link" href="#"><i class="fa fa-fw fa-balance-scale"></i>Portions </a>
+			                            <label class="container_cat">
+			                            <input class="portions" type="number" name="number_ofport" value="1"></label>
+			                        </li>
+			                        <div class="row ">
+			                            <div class="wrap_butt">
+			                              <button type="reset" id="rst_butt" name="reset">Reset</button>
+			                            </div>
+			                            <div class="wrap_butt">
+			                              <button type="submit" id="sub2_butt">Submit</button>
+			                            </div>
+			                        </div>
+			                    </ul>
+			                </div>
+			            </nav>
+			        </div>
+			    </div>
 				</div>
 
 				<div class="col-lg-5 mx-auto marg">
