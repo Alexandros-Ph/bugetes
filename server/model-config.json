@@ -53,7 +53,18 @@
   },
   "Product": {
     "dataSource": "db",
-    "public": true
+    "public": true,
+	"options":{
+		"remoting":{
+			"sharedMethods":{
+				"find":false,
+				"patchAttributes":false,
+				"patchOrCreate":false,
+				"replaceOrCreate":false,
+				"deleteById":false
+			}
+		}
+	}
   },
   "Price": {
     "dataSource": "db",
