@@ -40,7 +40,7 @@ module.exports = function(app) {
 					name: req.body.title,
 					description: req.body.description,
 					category: req.body.category,
-					tags: req.body.tags,
+					tags: (req.body.tags+'').split(','),
 					//userId: providerInstance.id
 				}, function(err, productInstance) {
 					if (err) {
