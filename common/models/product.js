@@ -1,5 +1,4 @@
 'use strict';
-var g = require('../../node_modules/loopback/lib/globalize');
 
 module.exports = function(Product) {
 	// Operation hook to handle the date info
@@ -79,22 +78,30 @@ module.exports = function(Product) {
 			//var where_obj={};
 			//where_obj.id=id;
 			//self.find({where:where_obj},function(find_err,inst_list){
-			self.find({where:{"id":id}},function(find_err,inst_list){
-				inst_list[0].updateAttribute(flag, attr, function(up_err,up_inst){
-					if(up_err){
-						cb(up_err);
-					}
-					else{
-						cb(null,up_inst);
-					}
-				});
+			self.findById(id,function(find_err,inst){
+				if(inst){
+					inst.updateAttribute(flag, attr, function(up_err,up_inst){
+						if(up_err){
+							cb(up_err);
+						}
+						else{
+							cb(null,up_inst);
+						}
+					});
+				}
+				else{
+					var err = new Error('too many arguments');
+					err.statusCode = 404;
+					err.code = 'MODEL_NOT_FOUND';
+					return cb(err);
+				}
 			});
 		}
 		else{
-			var err = new Error(g.f('no valid argument present'));
+			var err = new Error('no valid argument present');
 			err.statusCode = 400;
 			err.code = 'NO_VALID_ARG';
-			cb(err);
+			return cb(err);
 		}
 	}
 
@@ -115,9 +122,9 @@ module.exports = function(Product) {
 			query_withdrawn=true;
 		}
 		else if(status!="ALL"){
-			err = new Error(g.f('wrong argument value'));
+			err = new Error('wrong argument value');
 			err.statusCode = 400;
-			cb(err);
+			return cb(err);
 			//console.log("callback does not return");
 		}
 
@@ -125,19 +132,19 @@ module.exports = function(Product) {
 		else{
 			switch (sort) {
 				case "name|DESC":
-					sort="title DESC";
+					sort="name DESC";
 					break;
 				case "name|ASC":
-					sort="title ASC";
+					sort="name ASC";
 					break;
 				case "id|ASC":
 					sort="id ASC";
 					break;
 				default:
-					err = new Error(g.f('wrong argument value'));
+					err = new Error('wrong argument value');
 					err.statusCode = 400;
 					err.code = 'GET_FAILED_WRONG_ARGUMENT_VALUE';
-					cb(err);
+					return cb(err);
 					break;
 			}
 		}
