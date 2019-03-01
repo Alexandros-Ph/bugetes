@@ -43,7 +43,7 @@
   "relations": {
     "user": {
       "type": "belongsTo",
-      "model": "User",
+      "model": "MyUser",
       "foreignKey": "userId",
       "options": {
         "nestRemoting": true

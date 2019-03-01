@@ -1,7 +1,7 @@
 'use strict';
 
 var app = require('./server');
-var User = app.models.User;
+var User = app.models.MyUser;
 var Role = app.models.Role;
 var RoleMapping = app.models.RoleMapping;
 

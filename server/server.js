@@ -6,6 +6,7 @@ var boot = require('loopback-boot');
 var app = module.exports = loopback();
 app.use(loopback.token({
 	// params:['access_token'],			// query param to check for token
+	model: app.models.MyToken,
 	headers: ['X-OBSERVATORY-AUTH']		//http header to check for token
 }));
 

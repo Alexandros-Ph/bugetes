@@ -2,10 +2,10 @@
 
 module.exports = function(app) {
 
-  var User = app.models.User;
+  var User = app.models.MyUser;
   var Role = app.models.Role;
   var RoleMapping = app.models.RoleMapping;
-  var Location = app.models.Location;
+  var Shop = app.models.Shop;
   // use res.render to load up an ejs view file
   // index page
   app.get('/', function(req, res) {
@@ -43,7 +43,8 @@ module.exports = function(app) {
            }, function(err, principal) {
              if (err) throw err;
            });
-           Location.create({
+           Shop.create({
+			 name: userInstance.username,
              address: req.body.addr,
              userId: userInstance.id
            }, function(error){
