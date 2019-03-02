@@ -225,7 +225,6 @@ module.exports = function(Shop) {
 		else{
 			self.find({limit: count, skip: start, order: sort
 			},function(err,shopInstances){
-				console.log(start,count,shopInstances);
 				self.count(function(err,total){
 					cb(null, start, count, total, shopInstances);
 				});
