@@ -6,6 +6,7 @@
   "options": {
     "validateUpsert": true
   },
+  "http": {"path": "/api/Prices"},
   "properties": {
     "price": {
       "type": "number",
@@ -36,7 +37,7 @@
   "relations": {
     "provider": {
       "type": "belongsTo",
-      "model": "User",
+      "model": "MyUser",
       "foreignKey": "userId"
     },
     "shop": {

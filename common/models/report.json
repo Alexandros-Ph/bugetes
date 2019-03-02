@@ -5,6 +5,7 @@
   "options": {
     "validateUpsert": true
   },
+  "http": {"path": "/api/Reports"},
   "properties": {
     "description": {
       "type": "string",
@@ -15,12 +16,12 @@
   "relations": {
     "provider": {
       "type": "belongsTo",
-      "model": "User",
+      "model": "MyUser",
       "foreignKey": "provId"
     },
     "user": {
       "type": "belongsTo",
-      "model": "User",
+      "model": "MyUser",
       "foreignKey": "userId"
     }
   },
