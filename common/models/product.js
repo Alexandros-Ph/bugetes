@@ -12,7 +12,7 @@ module.exports = function(Product) {
 
 	Product.custom_delete=function(id, options, cb){
 		var self=this;
-		var User = app.models.User;
+		var User = app.models.MyUser;
 		var Role = app.models.Role;
 		var RoleMapping = app.models.RoleMapping;
 		var Token = app.models.AccessToken;
