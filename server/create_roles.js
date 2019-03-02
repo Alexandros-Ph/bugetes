@@ -12,13 +12,14 @@ Role.findOrCreate({
   if (err) throw err;
 });
 
+// create dev role
 Role.findOrCreate({
   name: 'admin'
 }, function(err) {
   if (err) throw err;
 });
 
-// create dev role
+
 User.find({where: {or: [{email: 'alex.pachos1@gmail.com'}, {email: 'miltos503@gmail.com'}, {email: 'aliki.mat@gmail.com'}, {email: 'fotinidelig@gmail.com'}, {email: 'stzesiades@gmail.com'}, {email: 'lykmast@gmail.com'}]}},
   function(err, team){
 

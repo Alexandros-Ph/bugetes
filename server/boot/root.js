@@ -44,7 +44,7 @@ module.exports = function(app) {
              if (err) throw err;
            });
            Shop.create({
-			 name: userInstance.username,
+			       name: userInstance.username,
              address: req.body.addr,
              userId: userInstance.id
            }, function(error){
@@ -75,21 +75,23 @@ module.exports = function(app) {
         if (err) throw err;
         RoleMapping.findOne({where: {principalId: user.id}}, function(fal, map){
           if (fal) throw fal;
-          Role.findOne({where: {id: map.roleId}}, function(no, obj) {
-            if (no) throw no;
-              if (obj.name == 'provider'){
-                res.render('prov_home', {             //login provider and render 'prov_home' view
-                  email: req.body.email,
-                  accessToken: token.id
-                });
-              }
-              else{
-                res.render('home', {                   //login user and render 'home' view
-                  email: req.body.email,
-                  accessToken: token.id
-                });
+          if (!map){
+            res.render('home', {                   //login user and render 'home' view
+              email: req.body.email,
+              accessToken: token.id
+            });
+          }
+          else{
+            Role.findOne({where: {id: map.roleId}}, function(no, obj) {
+              if (no) throw no;
+                if (obj.name == 'provider'){
+                  res.render('prov_home', {             //login provider and render 'prov_home' view
+                    email: req.body.email,
+                    accessToken: token.id
+                  });
               }
             });
+          }
           });
         });
     });
