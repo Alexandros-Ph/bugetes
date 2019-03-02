@@ -5,6 +5,7 @@
   "options": {
     "validateUpsert": true
   },
+  "http": {"path": "/api/Reports"},
   "properties": {
     "description": {
       "type": "string",

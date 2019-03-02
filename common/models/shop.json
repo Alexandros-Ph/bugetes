@@ -6,6 +6,7 @@
   "options": {
     "validateUpsert": true
   },
+  "http": {"path": "/api/Shops"},
   "properties": {
     "name": {
       "type": "string",

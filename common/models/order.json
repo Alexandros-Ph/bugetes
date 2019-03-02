@@ -5,6 +5,7 @@
   "options": {
     "validateUpsert": true
   },
+  "http": {"path": "/api/Orders"},
   "properties": {
     "createdAt": {
       "type": "date",
