@@ -17,11 +17,17 @@
     },
     "lng": {
       "type": "number",
-      "required": false
+      "required": false,
+	  "dataType": "decimal",
+  	  "precision": 8,
+  	  "scale": 5
     },
     "lat": {
-      "type": "number",
-      "required": false
+		"type": "number",
+        "required": false,
+  	  	"dataType": "decimal",
+    	"precision": 8,
+    	"scale": 5
     },
     "tags": {
       "type": "array",
