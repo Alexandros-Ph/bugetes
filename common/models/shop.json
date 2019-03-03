@@ -63,6 +63,30 @@
 		  "principalType": "ROLE",
 		  "principalId": "$authenticated",
 		  "permission": "ALLOW"
+	  },
+    {
+		  "principalType": "ROLE",
+		  "principalId": "$everyone",
+		  "permission": "DENY",
+      "property": "custom_patch"
+	  },
+	  {
+		  "principalType": "ROLE",
+		  "principalId": "$authenticated",
+		  "permission": "ALLOW",
+      "property": "custom_patch"
+	  },
+    {
+		  "principalType": "ROLE",
+		  "principalId": "$everyone",
+		  "permission": "DENY",
+      "property": "custom_delete"
+	  },
+	  {
+		  "principalType": "ROLE",
+		  "principalId": "$authenticated",
+		  "permission": "ALLOW",
+      "property": "custom_delete"
 	  }
   ],
   "methods": {}
