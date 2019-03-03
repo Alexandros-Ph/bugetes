@@ -14,7 +14,7 @@
     },
 	"accessTokens": {
       "type": "hasMany",
-      "model": "MyToken",
+      "model": "AccessToken",
       "foreignKey": "userId",
       "options": {
         "disableInclude": true

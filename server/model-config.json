@@ -88,10 +88,6 @@
     "options": {
       "emailVerificationRequired": false
     }
-  },
-  "MyToken": {
-    "dataSource": "db",
-    "public": false
   }
 
 }

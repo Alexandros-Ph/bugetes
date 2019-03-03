@@ -57,12 +57,5 @@
   },
   "final:after": {
     "strong-error-handler": {}
-  },
-  "auth": {
-	"loopback#token": {
-	  "params": {
-	    "model": "MyToken"
-	  }
-	}
   }
 }
