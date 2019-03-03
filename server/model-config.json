@@ -68,7 +68,15 @@
   },
   "Price": {
     "dataSource": "db",
-    "public": true
+    "public": true,
+    "options":{
+      "remoting":{
+        "sharedMethods":{
+          "find":false,
+          "create":false
+        }
+      }
+    }
   },
   "Shop": {
     "dataSource": "db",
