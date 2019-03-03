@@ -15,10 +15,7 @@
   },
   "User": {
     "dataSource": "db",
-    "public": true,
-    "options": {
-      "emailVerificationRequired": false
-    }
+    "public": false
   },
   "AccessToken": {
     "dataSource": "db",
@@ -80,6 +77,25 @@
   },
   "Shop": {
     "dataSource": "db",
-    "public": true
+    "public": true,
+	"options":{
+		"remoting":{
+			"sharedMethods":{
+				"find":false,
+				"patchAttributes":false,
+				"patchOrCreate":false,
+				"replaceOrCreate":false,
+				"deleteById":false
+			}
+		}
+	}
+  },
+  "MyUser": {
+    "dataSource": "db",
+    "public": true,
+    "options": {
+      "emailVerificationRequired": false
+    }
   }
+
 }

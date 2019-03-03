@@ -1,7 +1,7 @@
 module.exports = function(app) {
 
 	var Token = app.models.AccessToken;
-	var Provider = app.models.User;
+	var Provider = app.models.MyUser;
 	var Product = app.models.Product;
 	var Price = app.models.Price;
 
