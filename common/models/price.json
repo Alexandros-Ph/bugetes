@@ -12,12 +12,12 @@
       "type": "number",
       "required": true
     },
-    "dateFrom": {
+    "date": {
       "type": "date",
-      "required": false
+      "required": true
     },
-    "dateTo": {
-      "type": "date",
+    "distance": {
+      "type": "number",
       "required": false
     },
     "description": {
