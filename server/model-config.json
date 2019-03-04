@@ -82,6 +82,7 @@
 		"remoting":{
 			"sharedMethods":{
 				"find":false,
+        "create":false,
 				"patchAttributes":false,
 				"patchOrCreate":false,
 				"replaceOrCreate":false,
