@@ -53,3 +53,106 @@ Left Navigation Sidebar
     text-transform: uppercase;
     font-size: 12px;
 }
+
+
+/*  ----------Menu Tabs-----------*/
+.col-lg-5{
+  max-width:57%;
+}
+.wrapper{
+  transform: none;
+  height: inherit;
+}
+.right{
+  position: initial;
+}
+
+.cent{
+  transform: none;
+  top:10%;
+}
+
+.gbutton:hover{
+  transform: translateY(5px);
+  box-shadow: none;
+
+}
+.gbutton{
+  font-size: 16px;
+  font-size: 19px;
+  line-height: 52px;
+  background: #17aa56;
+  box-shadow: 0 6px #0c7339;
+  color: #fff;
+  border-radius: 7px;
+  padding: 0 30px;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.3s;
+}
+
+
+/* ---Modal---- */
+/* The Modal (background) */
+.modal {
+ display: none; /* Hidden by default */
+ position: fixed; /* Stay in place */
+ z-index: 1; /* Sit on top */
+ left: 0;
+ top: 0;
+ width: 100%; /* Full width */
+ height: 100%; /* Full height */
+ overflow: auto; /* Enable scroll if needed */
+ background-color: rgb(0,0,0); /* Fallback color */
+ background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+ background-color: #fefefe;
+ margin: 15% auto; /* 15% from the top and centered */
+ padding: 20px;
+ border: 1px solid #888;
+ width: 40%; /* Could be more or less, depending on screen size */
+}
+
+h5{
+  text-align: center;
+}
+
+/* The Close Button */
+.close {
+ color: #aaa;
+ font-size: 28px;
+ font-weight: bold;
+ text-align: right;
+}
+.close:hover,
+.close:focus {
+ color: black;
+ text-decoration: none;
+ cursor: pointer;
+}
+/* The No button  */
+#no:hover,
+#no:focus{
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Statistics */
+.card{
+  padding: 4px;
+  font-size: 16px;
+  text-align: center;
+  width: 30%;
+  margin: auto;
+  border-width: 3px !important;
+  border-top-color: #17aa56 !important;
+}
+.number{
+  font-size: 20px;
+  text-align: center;
+}

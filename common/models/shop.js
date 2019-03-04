@@ -27,7 +27,7 @@ module.exports = function(Shop) {
 									throw er;
 								}
 							});
-						}	
+						}
 					});
 				});
 			}
