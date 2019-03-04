@@ -1,4 +1,4 @@
-module.exports = function(app) {
+/*module.exports = function(app) {
 
 	var remotes = app.remotes();
 
@@ -25,4 +25,4 @@ module.exports = function(app) {
 		}
 		next();
 	}
-};
+};*/
