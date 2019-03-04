@@ -16,20 +16,10 @@
       "type": "string",
       "required": true
     },
-    "lng": {
-      "type": "number",
-      "required": false,
-	  "dataType": "decimal",
-  	  "precision": 8,
-  	  "scale": 5
-    },
-    "lat": {
-		"type": "number",
-        "required": false,
-  	  	"dataType": "decimal",
-    	"precision": 8,
-    	"scale": 5
-    },
+    "location": {
+        "type": "GeoPoint",
+        "required":false
+      },
     "tags": {
       "type": "array",
       "required": false
