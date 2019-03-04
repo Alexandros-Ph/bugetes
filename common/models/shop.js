@@ -4,36 +4,6 @@ var loopback = require('../../node_modules/loopback/lib/loopback');
 
 module.exports = function(Shop) {
 
-	Shop.setDistance=function(point){
-		var dist;
-		var from = new loopback.GeoPoint([0,0]); //shop coordinates
-		var to = new loopback.GeoPoint(point);	//given coordinates
-		console.log("to  "+point);
-		this.find({},function(error,list){
-			if(error)
-				throw error;
-			else{
-				list.forEach(function(elem){
-					app.models.Shop.findById(elem.id,function(err,inst){
-						if(err) throw err;
-						else{
-							from = new loopback.GeoPoint([inst.lat,inst.lng]);
-							console.log("from  "+inst.lat+","+inst.lng);
-							dist = from.distanceTo(to);
-							console.log(dist);
-							inst.updateAttribute("distance",dist,function(er,newElem){
-								if(er){
-									console.log("can not update attribute");
-									throw er;
-								}
-							});
-						}	
-					});
-				});
-			}
-		});
-	}
-
 	Shop.custom_delete=function(id, options, cb){
 		var self=this;
 		var User = app.models.MyUser;
@@ -200,6 +170,31 @@ module.exports = function(Shop) {
 		}
 	}
 
+	function ChangeShops(shopInstances){
+
+		var list=[];
+		var newInst={};
+		console.log(shopInstances);
+		return new Promise(function(resolve,reject){
+				shopInstances.forEach(function(error,inst){
+					if(error) reject(error);
+					console.log(inst);
+					newInst.name=inst.name;
+					console.log(newInst);
+					newInst.address=inst.address;
+					newInst.lat=inst.location.lat;
+					console.log(newInst);
+					newInst.lng=inst.location.lng;
+					newInst.withdrawn=inst.withdrawn;
+					console.log(newInst);
+					newInst.tags=inst.tags;
+					console.log("nshkjd");
+					list.push(newInst);
+				});
+				resolve(list);
+		});
+	}
+
 	Shop.custom_find = function(start, count, status, sort, cb){
 		var self= this;
 		var query_withdrawn;
@@ -247,20 +242,72 @@ module.exports = function(Shop) {
 			self.find({where:{withdrawn:query_withdrawn},limit: count, skip: start, order: sort
 			},function(err,shopInstances){
 				console.log(start,count,shopInstances);
-				self.count({withdrawn:query_withdrawn},function(err,total){
-					cb(null, start, count, total, shopInstances);
+				var promise=ChangeShops(shopInstances);
+				promise.then(function(list){
+					self.count({withdrawn:query_withdrawn},function(err,total){
+						cb(null, start, count, total, list);
+					});
+				},function(err){
+					err = new Error('wrong argument value');
+					err.statusCode = 501;
+					err.code = 'GET_FAILED_WRONG_ARGUMENT_VALUE';
+					return cb(err);
 				});
 			});
 		}
 		else{
 			self.find({limit: count, skip: start, order: sort
 			},function(err,shopInstances){
-				self.count(function(err,total){
-					cb(null, start, count, total, shopInstances);
+				var promise=ChangeShops(shopInstances);
+				promise.then(function(list){
+					self.count(function(err,total){
+						cb(null, start, count, total, list);
+					});
+				},function(err){
+					err = new Error('wrong argument value');
+					err.statusCode = 501;
+					err.code = 'GET_FAILED_WRONG_ARGUMENT_VALUE';
+					return cb(err);
 				});
 			});
 		}
 	}
+
+	Shop.custom_create=function(data,cb){
+		var temp={};
+		if(!data.name || !data.address || !data.lat || !data.lng || !data.tags){
+			err = new Error('wrong argument value');
+			err.statusCode = 400;
+			err.code = 'GET_FAILED_WRONG_ARGUMENT_VALUE';
+			return cb(err);
+		}
+		else{
+			var location=new loopback.GeoPoint([data.lat,data.lng]);
+			temp.name=data.name;
+			temp.address=data.address;
+			temp.location=location;
+			if(data.withdrawn!=null)
+				temp.withdrawn=data.withdrawn;
+			Shop.create(temp,function(err,inst){
+				if(err){
+					err = new Error('wrong argument value');
+					err.statusCode = 400;
+					err.code = 'GET_FAILED_WRONG_ARGUMENT_VALUE';
+					return cb(err);
+				}
+				data.id=inst.id;
+				data.withdrawn=inst.withdrawn;
+				cb(null,data);
+			});
+		}
+	}
+
+	Shop.remoteMethod('custom_create',{
+		accepts:
+			{arg: 'data', type: 'object', http: {source: 'body'}},
+		returns:{root:true},
+		http: [{path: '/', verb: 'post'}]
+	});
 
 	Shop.remoteMethod('custom_delete',{
 		accepts:[
