@@ -1,4 +1,5 @@
 'use strict';
+var app = require('../../server/server');
 
 module.exports = function(Product) {
 	// Operation hook to handle the date info
@@ -9,22 +10,83 @@ module.exports = function(Product) {
 		}next()
 	})
 
-	Product.custom_delete=function(id,cb){
+	Product.custom_delete=function(id, options, cb){
+		var self=this;
+		var User = app.models.MyUser;
+		var Role = app.models.Role;
+		var RoleMapping = app.models.RoleMapping;
+		var Token = app.models.AccessToken;
+
+
 		var err = new Error('not found');
 		err.statusCode = 404;
 		err.code = 'MODEL_NOT_FOUND';
 		err.status = 404;
-		this.findById(id,function(find_err,inst){
-			if(inst){
-				inst.deleteById(id,function(del_err){
-					if(err){return cb(err);}
-					else{cb(null,{"message":"OK"});}
-				});
-			}
-			else{
-				return cb(err);
-			}
-		});
+
+		const token_inst = options && options.accessToken;
+
+		if(token_inst){
+			RoleMapping.findOne({where:{"principalId":token_inst.userId}
+			},function(find_err,map_inst){
+				if(find_err)
+					throw find_err;
+				if(map_inst){
+					Role.findById(map_inst.roleId
+					,function(find_err,role_inst){
+						if(find_err)
+							throw find_err;
+						if(role_inst){
+							var role_name=role_inst.name;
+							if(role_name=="admin"||role_name=="dev"){
+								self.findById(id,function(find_err,inst){
+									if(find_err)
+										throw find_err;
+									if(inst){
+										self.deleteById(id
+										,function(del_err){
+											if(del_err) throw del_err;
+											else{
+												return cb(null
+												,{"message":"OK"});
+											}
+										});
+									}
+									else{
+										return cb(err);
+									}
+								});
+							}
+							else{
+								self.findById(id,function(find_err,inst){
+									if(find_err)
+										throw find_err;
+									if(inst){
+										inst.updateAttribute("withdrawn",true,function(up_err){
+											if(up_err)
+												throw up_err;
+											else
+												return cb(null,{"message":"OK"});
+										});
+									}
+									else{
+										return cb(err);
+									}
+								});
+							}
+						}
+						else{
+							return cb(err);
+						}
+					});
+				}
+				else{
+					return cb(err);
+				}
+			});
+		}
+		else{
+			return cb(err);
+		}
 	}
 
 	Product.custom_patch=function(id,name, description,category,tags,withdrawn,cb){
@@ -151,7 +213,7 @@ module.exports = function(Product) {
 		if(status!="ALL"){
 			self.find({where:{withdrawn:query_withdrawn},limit: count, skip: start, order: sort
 			},function(err,productInstances){
-				self.count(function(err,total){
+				self.count({withdrawn:query_withdrawn},function(err,total){
 					cb(null, start, count, total, productInstances);
 				});
 			});
@@ -167,7 +229,12 @@ module.exports = function(Product) {
 	}
 
 	Product.remoteMethod('custom_delete',{
-		accepts:{arg: 'id', type: 'number', http: {source: 'path'}},
+		accepts:[
+			{arg: 'id', type: 'number', http: {source: 'path'}},
+			// {arg: 'req', type: 'object', http: {source: 'req'}}
+			{"arg": "options", "type": "object", "http": "optionsFromRequest"}
+
+		],
 		returns:{root:true},
 		http: [{path: '/:id', verb: 'delete'}]
 	});

@@ -15,10 +15,7 @@
   },
   "User": {
     "dataSource": "db",
-    "public": true,
-    "options": {
-      "emailVerificationRequired": false
-    }
+    "public": false
   },
   "AccessToken": {
     "dataSource": "db",
@@ -84,5 +81,13 @@
 			}
 		}
 	}
+  },
+  "MyUser": {
+    "dataSource": "db",
+    "public": true,
+    "options": {
+      "emailVerificationRequired": false
+    }
   }
+
 }

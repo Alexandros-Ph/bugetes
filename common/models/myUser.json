@@ -1,0 +1,39 @@
+{
+  "name": "MyUser",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "http": {"path": "/api"},
+  "relations": {
+    "shop": {
+      "type": "hasOne",
+      "model": "Shop",
+      "foreignKey": "shopId"
+    },
+	"accessTokens": {
+      "type": "hasMany",
+      "model": "AccessToken",
+      "foreignKey": "userId",
+      "options": {
+        "disableInclude": true
+      }
+	}
+  },
+  "acls": [
+	{
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "custom_login"
+  },
+  {
+	"principalType": "ROLE",
+	"principalId": "$everyone",
+	"permission": "ALLOW",
+	"property": "custom_logout"
+  }
+  ],
+  "methods": {}
+}

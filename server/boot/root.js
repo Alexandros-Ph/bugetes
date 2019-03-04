@@ -2,10 +2,10 @@
 
 module.exports = function(app) {
 
-  var User = app.models.User;
+  var User = app.models.MyUser;
   var Role = app.models.Role;
   var RoleMapping = app.models.RoleMapping;
-  var Location = app.models.Location;
+  var Shop = app.models.Shop;
   // use res.render to load up an ejs view file
   // index page
   app.get('/', function(req, res) {
@@ -43,7 +43,8 @@ module.exports = function(app) {
            }, function(err, principal) {
              if (err) throw err;
            });
-           Location.create({
+           Shop.create({
+			       name: userInstance.username,
              address: req.body.addr,
              userId: userInstance.id
            }, function(error){
@@ -74,21 +75,23 @@ module.exports = function(app) {
         if (err) throw err;
         RoleMapping.findOne({where: {principalId: user.id}}, function(fal, map){
           if (fal) throw fal;
-          Role.findOne({where: {id: map.roleId}}, function(no, obj) {
-            if (no) throw no;
-              if (obj.name == 'provider'){
-                res.render('prov_home', {             //login provider and render 'prov_home' view
-                  email: req.body.email,
-                  accessToken: token.id
-                });
-              }
-              else{
-                res.render('home', {                   //login user and render 'home' view
-                  email: req.body.email,
-                  accessToken: token.id
-                });
+          if (!map){
+            res.render('home', {                   //login user and render 'home' view
+              email: req.body.email,
+              accessToken: token.id
+            });
+          }
+          else{
+            Role.findOne({where: {id: map.roleId}}, function(no, obj) {
+              if (no) throw no;
+                if (obj.name == 'provider'){
+                  res.render('prov_home', {             //login provider and render 'prov_home' view
+                    email: req.body.email,
+                    accessToken: token.id
+                  });
               }
             });
+          }
           });
         });
     });
