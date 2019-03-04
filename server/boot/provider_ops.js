@@ -62,7 +62,7 @@ module.exports = function(app) {
 						if (pr_error) {
 							res.render('response', { 				  //render view named 'response.ejs'
 								title: 'Price creation failed',
-								content: err.message,
+								content: pr_error.message,
 								redirectTo: '/add',
 								redirectToLinkText: 'Try again'
 							});

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="el">
 <head>
 	<title>Home</title>
 	<meta charset="UTF-8">
@@ -55,64 +55,77 @@
 			                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			                    <span class="navbar-toggler-icon"></span>
 			                </button>
-			                <form action="" method="post">
+			                <form action="/filters" method="post">
 
 			                <div class="collapse navbar-collapse" id="navbarNav">
 			                    <ul class="navbar-nav flex-column">
 			                        <li class="nav-divider">
-			                            Filters
+			                            Φίλτρα
 			                        </li>
 			                        <li class="nav-item ">
-			                            <a class="nav-link" href="#"><i class="fa fa-fw fa-filter"></i>Category </a>
+			                            <a class="nav-link" href="#"><i class="fa fa-fw fa-filter"></i>Κατηγορίες: </a>
 			                        </li>
-			                        <label class="container_cat">
-			                        Salads
-			                        <input type="checkbox" name="category[]" value="Salads">
+															<label class="container_cat">
+			                        Ορεκτικά
+			                        <input type="checkbox" name="category[]" value="Ορεκτικά">
 			                        <span class="checkmark"></span></label>
+
 			                        <label class="container_cat">
-			                        Seafood/Fish
-			                        <input type="checkbox" name="category[]" value="Seafood/Fish">
+			                        Σαλάτες
+			                        <input type="checkbox" name="category[]" value="Σαλάτες">
 			                        <span class="checkmark"></span></label>
+
 			                        <label class="container_cat">
-			                        Meats
-			                        <input type="checkbox" name="category[]" value="Meats">
+			                        Θαλασσινά
+			                        <input type="checkbox" name="category[]" value="Θαλασσινά">
 			                        <span class="checkmark"></span></label>
+
 			                        <label class="container_cat">
-			                        Chicken
-			                        <input type="checkbox" name="category[]" value="Chicken">
+			                        Κρέατα/Ψητά
+			                        <input type="checkbox" name="category[]" value="Κρέατα">
 			                        <span class="checkmark"></span></label>
+
 			                        <label class="container_cat">
-			                        Pasta
-			                        <input type="checkbox" name="category[]" value="Pasta">
+			                        Ζυμαρικά
+			                        <input type="checkbox" name="category[]" value="Ζυμαρικά">
 			                        <span class="checkmark"></span></label>
+
 			                        <label class="container_cat">
-			                        Rice/Potatoes
-			                        <input type="checkbox" name="category[]" value="Rice/Potatoes">
+			                        Πίτες
+			                        <input type="checkbox" name="category[]" value="Πίτες">
 			                        <span class="checkmark"></span></label>
+
 			                        <label class="container_cat">
-			                        Sweets/Desserts
-			                        <input type="checkbox" name="category[]" value="Sweets/Desserts">
+			                        Γλυκά
+			                        <input type="checkbox" name="category[]" value="Γλυκά">
 			                        <span class="checkmark"></span></label>
+
 			                        <label class="container_cat">
-			                        Other
-			                        <input type="checkbox" name="category[]" value="Other">
+			                        Άλλα
+			                        <input type="checkbox" name="category[]" value="Άλλα">
 			                        <span class="checkmark"></span></label>
 
 			                        <li class="nav-item ">
-			                            <a class="nav-link" href="#"><i class="fa fa-fw fa-balance-scale"></i>Portions </a>
+			                            <a class="nav-link" href="#"><i class="fa fa-fw fa-balance-scale"></i>Μερίδες </a>
 			                            <label class="container_cat">
-			                            <input class="portions" type="number" name="number_ofport" value="1"></label>
+			                            <input class="portions" type="number" name="portions" value="1"></label>
 			                        </li>
+															<input class="field" type="text" name="token" value="<%=accessToken%>" style="display:none">
 			                        <div class="row ">
-			                            <div class="wrap_butt">
+
+
+																	<div class="wrap_butt">
 			                              <button type="reset" id="rst_butt" name="reset">Reset</button>
 			                            </div>
+
+
 			                            <div class="wrap_butt">
 			                              <button type="submit" id="sub2_butt">Submit</button>
 			                            </div>
 			                        </div>
 			                    </ul>
 			                </div>
+											</form>
 			            </nav>
 			        </div>
 			    </div>

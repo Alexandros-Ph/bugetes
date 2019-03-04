@@ -14,7 +14,7 @@
     },
     "date": {
       "type": "date",
-      "required": true
+      "required": false
     },
     "distance": {
       "type": "number",

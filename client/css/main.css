@@ -300,6 +300,11 @@ iframe {
   }
 }
 
+  .option{
+    border-radius: 25px;
+    color: #999999;
+  }
+
 .symbol-input100 {
   font-size: 15px;
 
