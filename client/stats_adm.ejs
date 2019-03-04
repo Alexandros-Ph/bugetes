@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+  	<link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
+
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    <title>Admin's Dashboard</title>
+</head>
+
+
+
+<body class="gray_back">
+    <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+
+    <nav class="navbar navbar-expand-lg navbar-white bg-white fixed-top" id="mainNav">
+  		<div class="container">
+  			<a class="navbar-brand js-scroll-trigger" href="/stats_adm" id="logo_wrap"> <img src="/images/homemade.jpg" alt="" id="logo"> </a>
+  			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+  				<span class="navbar-toggler-icon"></span>
+  			</button>
+  			<div class="collapse navbar-collapse" id="navbarResponsive">
+  				<ul class="navbar-nav ml-auto">
+  					<li class="nav-item">
+  						<a class="nav-link js-scroll-trigger link-3" href="/profile">Profile</a>
+  					</li>
+  					<li class="nav-item">
+  						<a class="nav-link js-scroll-trigger link-3" href="/logout" id="logout">Log out</a>
+  					</li>
+  				</ul>
+  			</div>
+  		</div>
+  	</nav>
+
+
+    <!-- ============================================================== -->
+    <!-- left sidebar -->
+    <!-- ============================================================== -->
+    <div class="nav-left-sidebar sidebar-dark">
+        <div class="menu-list">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-divider">
+                            Menu
+                        </li>
+                        <a class="nav-link" href="/reports"><i class="fa fa-fw fa-user-circle"></i>Reports </a>
+                        <a class="nav-link"  href="/prov_acc"><i class="fa fa-fw fa-user-circle"></i>Providers' Accounts</a>
+                        <a class="nav-link" href="/usr_acc"><i class="fa fa-fw fa-user-circle"></i>Users' Accounts</a>
+                        <a class="nav-link" href="/stats_adm"><i class="fa fa-fw fa-user-circle"></i>Statistics </a>
+                        <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Administrators' Accounts </a>
+
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end left sidebar -->
+    <!-- ============================================================== -->
+
+    <h2 style="padding-top:120px; text-align:center">Στατιστικά Ιστοσελίδας</h2>
+
+    <div class="col-lg-5 mx-auto marg">
+
+    <div class="row">
+    <div class="card">
+        Number of providers' account
+      <hr>
+      <div class="number">
+        <h1>420</h1>
+      </div>
+    </div>
+
+    <div class="card">
+        Number of users' account
+      <hr>
+      <div class="number">
+        <h1>2170</h1>
+      </div>
+    </div>
+
+    <div class="card">
+        Number of posts
+      <hr>
+      <div class="number">
+        <h1>4270</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+  <div class="card" style="margin-top:15px">
+      Number of reports
+    <hr>
+    <div class="number">
+      <h1>4</h1>
+    </div>
+  </div>
+</div>
+  </div>
+
+
+</body>
+
+</html>

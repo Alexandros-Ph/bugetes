@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="el">
 <head>
 	<title>Home</title>
 	<meta charset="UTF-8">
@@ -32,7 +32,7 @@
 						<a class="nav-link js-scroll-trigger link-3" href="#">History</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger link-3" href="#">Profile</a>
+						<form class="nav-link js-scroll-trigger link-3" href="/profile">Profile</form>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link js-scroll-trigger link-3" href="/logout?access_token=<%=accessToken%>" id="logout">Log out</a>
@@ -46,43 +46,53 @@
 	  <div class="card_div">
       <form class="validate-form add_form" id="login_form" action="/add" method="post">
         <span class="login100-form-title">
-          Product details
+          Πληροφορίες για το φαγητό:
         </span>
 
-        <div class="wrap_field" data-validate = "Valid title is required e.x: Pastitsio">
-          <input class="field" type="text" name="title" placeholder="Name" required>
+        <div class="wrap_field" data-validate = "Valid title is required e.x: Παστίτσιο">
+          <input class="field" type="text" name="title" placeholder="Όνομα" required>
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-quote-left" aria-hidden="true"></i>
+          </span>
+        </div>
+
+        <div class="wrap_field">
+          <input class="field" type="text" name="description" placeholder="Περιγραφή">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+            <i class="fa fa-info" aria-hidden="true"></i>
+          </span>
+        </div>
+
+        <div class="wrap_field">
+					<select name="category" required class="field" style="border:none; color: #999999; padding-left:64px">
+						<option class="option" value="" selected disabled hidden>Κατηγορία</option>
+  					<option class="option" value="Ορεκτικά">Ορεκτικά</option>
+  					<option class="option" value="Σαλάτες">Σαλάτες</option>
+  					<option class="option" value="Θαλασσινά">Θαλασσινά</option>
+  					<option class="option" value="Κρέατα">Κρέατα-Ψητά</option>
+						<option class="option" value="Ζυμαρικά">Ζυμαρικά</option>
+						<option class="option" value="Πίτες">Πίτες</option>
+						<option class="option" value="Γλυκά">Γλυκά</option>
+						<option class="option" value="Άλλα">Άλλα</option>
+					</select>
+					<span class="focus-input100"></span>
+					<span class="symbol-input100">
+            <i class="fa fa-th-list" aria-hidden="true"></i>
+          </span>
+        </div>
+
+				<div class="wrap_field">
+          <input class="field" type="text" name="tags[]" placeholder="Ετικέτες" pattern="[ά-ωΆ-Ω]+(,[ά-ωΆ-Ω]+)*" title="Use comma to seperate each tag, e.x. tag1,tag2,tag3">
           <span class="focus-input100"></span>
           <span class="symbol-input100">
             <i class="fa fa-hashtag" aria-hidden="true"></i>
           </span>
         </div>
 
-        <div class="wrap_field">
-          <input class="field" type="text" name="description" placeholder="Description">
-          <span class="focus-input100"></span>
-          <span class="symbol-input100">
-            <i class="fa fa-file-text" aria-hidden="true"></i>
-          </span>
-        </div>
-
-        <div class="wrap_field">
-          <input class="field" type="text" name="category" placeholder="Category of product" required>
-          <span class="focus-input100"></span>
-          <span class="symbol-input100">
-            <i class="fa fa-clock-o" aria-hidden="true"></i>
-          </span>
-        </div>
-
 				<div class="wrap_field">
-          <input class="field" type="text" name="tags[]" placeholder="Tags" pattern="[ά-ωΆ-Ω]+(,[ά-ωΆ-Ω]+)*" title="Use comma to seperate each tag, e.x. tag1,tag2,tag3">
-          <span class="focus-input100"></span>
-          <span class="symbol-input100">
-            <i class="fa fa-hashtag" aria-hidden="true"></i>
-          </span>
-        </div>
-
-				<div class="wrap_field">
-          <input class="field" type="number" min="1" name="amount" placeholder="Amount" required>
+          <input class="field" type="number" min="1" name="amount" placeholder="Μερίδες" required>
           <span class="focus-input100"></span>
           <span class="symbol-input100">
             <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i>
@@ -90,7 +100,7 @@
         </div>
 
 				<div class="wrap_field">
-          <input class="field" type="number" min="1" max="100" name="price" placeholder="Price in euros" required>
+          <input class="field" type="number" min="1" max="100" name="price" placeholder="Τιμή σε ευρώ" required>
           <span class="focus-input100"></span>
           <span class="symbol-input100">
             <i class="fa fa-euro" aria-hidden="true"></i>

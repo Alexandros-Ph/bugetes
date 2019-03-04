@@ -12,6 +12,10 @@ module.exports = function(app) {
     });
    });
 
+	 app.get('/stats_prov', function(req,res){
+	    res.render('stats_provider');
+	  });
+
 	// create a product
 	app.post('/add', function(req, res){
 		Token.findById(req.body.token, function(token_err, tokenInstance){
@@ -62,7 +66,7 @@ module.exports = function(app) {
 						if (pr_error) {
 							res.render('response', { 				  //render view named 'response.ejs'
 								title: 'Price creation failed',
-								content: err.message,
+								content: pr_error.message,
 								redirectTo: '/add',
 								redirectToLinkText: 'Try again'
 							});

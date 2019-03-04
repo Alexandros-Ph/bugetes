@@ -76,7 +76,7 @@ module.exports = function(app) {
         RoleMapping.findOne({where: {principalId: user.id}}, function(fal, map){
           if (fal) throw fal;
           if (!map){
-            res.render('home', {                   //login user and render 'home' view
+            res.render('home', {                        //login user and render 'home' view
               email: req.body.email,
               accessToken: token.id
             });
@@ -89,7 +89,13 @@ module.exports = function(app) {
                     email: req.body.email,
                     accessToken: token.id
                   });
-              }
+                }
+                else{
+                  res.render('home', {                   //we will redirect to admin page here when it's ready
+                    email: req.body.email,
+                    accessToken: token.id
+                  });
+                }
             });
           }
           });

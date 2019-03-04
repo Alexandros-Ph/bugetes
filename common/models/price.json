@@ -14,7 +14,7 @@
     },
     "date": {
       "type": "date",
-      "required": true
+      "required": false
     },
     "description": {
       "type": "string",

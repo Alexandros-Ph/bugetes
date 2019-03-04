@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+  	<link rel="stylesheet" type="text/css" href="css/main.css">
+    <title>Profile</title>
+</head>
+
+<body>
+  <!-- ============================================================== -->
+  <!-- main wrapper -->
+  <!-- ============================================================== -->
+
+  <nav class="navbar navbar-expand-lg navbar-white bg-white fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="/stats_adm" id="logo_wrap"> <img src="/images/homemade.jpg" alt="" id="logo"> </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger link-3" href="/profile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger link-3" href="/logout" id="logout">Log out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2 style="padding-top:120px; text-align:center">Επεξεργασία Προφίλ</h2>
+  	<hr>
+	<div class="row">
+      <!-- left column -->
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="/images/avatar.png" class="avatar img-circle" height="150" width="150" alt="avatar">
+        </div>
+      </div>
+
+      <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+        <!-- <div class="alert alert-info alert-dismissable">
+          <a class="panel-close close" data-dismiss="alert">×</a>
+          <i class="fa fa-coffee"></i>
+          This is an <strong>.alert</strong>. Use this to show important messages to the user.
+        </div> -->
+
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            Username:
+            <div class="col-lg-8">
+              <input class="form-control" type="text" value="Jane">
+            </div>
+          </div>
+          <div class="form-group">
+            Email:
+            <div class="col-lg-8">
+              <input class="form-control" type="text" value="janesemail@gmail.com">
+            </div>
+          </div>
+          <div class="form-group">
+            Password:
+            <div class="col-md-8">
+              <input class="form-control" type="password" value="11111122333">
+            </div>
+          </div>
+          <div class="form-group">
+            Confirm password:
+            <div class="col-md-8">
+              <input class="form-control" type="password" value="11111122333">
+            </div>
+          </div><br>
+          <div class="form-group">
+            <div class="col-md-8">
+              <input type="button" class="btn btn-primary" value="Save Changes">
+              <span></span>
+              <input type="reset" class="btn btn-default" value="Reset Changes">
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+</div>
+
+
+
+
+</body>
+
+</html>
