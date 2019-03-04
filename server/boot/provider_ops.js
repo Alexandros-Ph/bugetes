@@ -12,6 +12,10 @@ module.exports = function(app) {
     });
    });
 
+	 app.get('/stats_prov', function(req,res){
+	    res.render('stats_provider');
+	  });
+
 	// create a product
 	app.post('/add', function(req, res){
 		Token.findById(req.body.token, function(token_err, tokenInstance){
