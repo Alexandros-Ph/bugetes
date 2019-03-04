@@ -3,6 +3,8 @@
 var app = require('../../server/server');
 var loopback = require('../../node_modules/loopback/lib/loopback');
 var g = require('../../node_modules/loopback/lib/globalize');
+var server = require('../../server/server');
+var ds = server.dataSources.db;
 
 module.exports = function(Price) {
 
@@ -110,15 +112,16 @@ module.exports = function(Price) {
 		});
 	}
 	//function to find prices for GET request with given filters
-	function findPrice(obj,start,count,sortBy,shopOrder) {
+	function findPrice(obj,shop_obj,start,count,sortBy,shopOrder) {
 		console.log("in promise");
 		console.log(sortBy);
 		return new Promise(function(resolve,reject){
-			app.models.Price.find({where:obj,include:[{relation:'shop',scope:{fields:['tags','address','name']}},{relation:'product',scope:{fields:['tags','name']}}],limit: count, skip: start, order: sortBy},function(err,inst){
+			app.models.Price.find({where:obj,include:[shop_obj,{relation:'product',scope:{fields:['tags','name']}}],limit: count, skip: start, order: sortBy},function(err,inst){
 				if (err) reject(err);
 				else{ 
-					inst.forEach(function(el){
-					});
+					// inst.forEach(function(el){
+					// 	console.log(el)
+					// });
 					console.log("found"+inst.length+" results");
 					resolve(inst);
 				}
@@ -133,7 +136,9 @@ module.exports = function(Price) {
 		var sortBy="";
 		var shopOrder="";
 		var geo=false;
+		var include_obj;
 		var shop;
+		var mysqlString="";
 		var product;
 		var temp = {};
 		var shopIds = [];
@@ -142,16 +147,21 @@ module.exports = function(Price) {
 		var tempObj = [];
 		var date = [];
 		var where_obj = {};
+		var shop_obj={},prod_obj={};
 
 		where_obj.and=[];
+		shop_obj={relation:'shop',scope:{fields:['tags','address','name','location']}};
+		// mysqlString=mysqlString+"select Price.*,Product.*,Shop.*,Product.tags as prodTags,Shop.tags as shopTags,ST_Distance_Sphere((?,?),(?,?)) as dist ";
+		// mysqlString=mysqlString+"from Price inner join Product on Price.productId=Product.id inner join Shop on Price.shopId=Shop.Id where";
+		// console.log(mysqlString);
 		if(!start) start=0;
 		if(!count) count=20;
 		if(!sort) sortBy="price ASC";
 		else{
 			if(sort=="dist|DESC")
-				sortBy="distance DESC";
+				sortBy="";
 			else if(sort=="dist|ASC")
-				sortBy="distance ASC";
+				sortBy="";
 			else if(sort=="price|DESC")
 				sortBy="price DESC";
 			else if(sort=="price|ASC")
@@ -167,19 +177,24 @@ module.exports = function(Price) {
 				cb(err);
 			}
 		}
+		console.log(typeof shops);
 		if(err) console.log("not good.....cant recognise sorting");
 		if(geoDist && geoLat && geoLng){ //case geoDist given,find shops within reagion
+			geo=true;
 			console.log("you gave distance");
+			to = new loopback.GeoPoint([geoLat,geoLng]);
 			// app.models.Shop.setDistance([geoLat,geoLng]);	//set distances in shops
 			// where_obj.and.push({"distance": {between: [0,geoDist]}});
-			var promise=setDistance(geoLat,geoLng);
-			promise.then(function(res){
-				console.log("returned!!!!!!!");
-				console.log("promise 0");
-				where_obj.and.push({"distance": {between: [0,geoDist]}});
-			},function(err){
-				throw err;
-			});
+			// var promise=setDistance(geoLat,geoLng);
+			// promise.then(function(res){
+			// 	console.log("returned!!!!!!!");
+			// 	console.log("promise 0");
+			// 	where_obj.and.push({"distance": {between: [0,geoDist]}});
+			// },function(err){
+			// 	throw err;
+			// });
+			shop_obj["scope"].where={'location':{near:to,unit: 'kilometers'}};
+			mysqlString=mysqlString+"dist <="+geoDist;
 		}
 		else
 			if(geoDist!=null || geoLat!=null || geoLng!=null){ //case of wrong input
@@ -191,12 +206,14 @@ module.exports = function(Price) {
 		
 		if(shops){
 			where_obj.and.push({"shopId": {inq: shops}});
+			// mysqlString=mysqlString+" and Price.shopId in ("+shops+")";
 		}
 
 		if(products){
 			where_obj.and.push({"productId": {inq: products}});
+			// mysqlString=mysqlString+" and Price.productId in ("+products+")";
 		}
-		
+		console.log("mnsrgj");
 		if(dateFrom && dateTo){
 			var From=new Date(dateFrom);
 			var To=new Date(dateTo);
@@ -210,6 +227,7 @@ module.exports = function(Price) {
 				date.push(From);
 				date.push(To);
 				where_obj.and.push({"date":{between: date}});
+				mysqlString=mysqlString+" and Price.date in ("+date+")";
 			}
 			else{
 				dateFrom.setHours(0);
@@ -221,6 +239,7 @@ module.exports = function(Price) {
 				date.push(dateFrom);
 				date.push(dateTo);
 				where_obj.and.push({"date": {between: date}});
+				mysqlString=mysqlString+" and Price.date in ("+date+")";
 			}	
 		}
 		else if(!dateFrom && !dateTo){
@@ -235,6 +254,7 @@ module.exports = function(Price) {
 			date.push(dateFrom);
 			date.push(dateTo);
 			where_obj.and.push({"date":{between: date}});
+			mysqlString=mysqlString+" and Price.date in ("+date+")";
 		}
 		else{
 			console.log("wrong dates");
@@ -244,36 +264,37 @@ module.exports = function(Price) {
 			cb(err);
 		}
 
-		var promise=findPrice(where_obj,start,count,sortBy,shopOrder);
+		var promise=findPrice(where_obj,shop_obj,start,count,sortBy,shopOrder);
 		if(!err){
 			promise.then(function(inst){
-				inst.forEach(function(priceElem){
-					var p=priceElem.toJSON();
-					shop=false;
-					product=false;
-					if(tags){
-						console.log(tags);
-						if(p.shop.tags){
-							p.shop.tags.forEach(function(shop_tag){
-								if(tags.includes(shop_tag)){
-									shop=true;
-									console.log("found shop tag");
-								}
-							});
+				if(inst){
+					inst.forEach(function(priceElem){
+						var p=priceElem.toJSON();
+						shop=false;
+						product=false;
+						if(tags){
+							if(p.shop.tags){
+								p.shop.tags.forEach(function(shop_tag){
+									if(tags.includes(shop_tag)){
+										shop=true;
+										console.log("found shop tag");
+									}
+								});
+							}
+							if(p.product.tags){
+								p.product.tags.forEach(function(prod_tag){
+									if(tags.includes(prod_tag)){
+										console.log("found prod tag");
+										product=true;
+									}
+								});
+							}
 						}
-						if(p.product.tags){
-							p.product.tags.forEach(function(prod_tag){
-								if(tags.includes(prod_tag)){
-									console.log("found prod tag");
-									product=true;
-								}
-							});
-						}
-					}
-					else tempObj.push(p);
-					if(product || shop)
-						tempObj.push(p);
-				});
+						else tempObj.push(p);
+						if(product || shop)
+							tempObj.push(p);
+					});
+				}
 
 				tempObj.forEach(function(priceElem){
 					var temp={};
@@ -294,12 +315,21 @@ module.exports = function(Price) {
 					temp.shopName=priceElem.shop.name;
 					temp.shopTags=priceElem.shop.tags;
 					temp.shopAddress=priceElem.shop.address;
-					temp.shopDist=priceElem.distance;
-					final.push(temp);
+					var location=new loopback.GeoPoint([priceElem.shop.location.lat,priceElem.shop.location.lng]);
+					if(geo){
+						temp.shopDist=location.distanceTo(to,{type: 'kilometers'});
+						if(temp.shopDist<=geoDist)
+							final.push(temp);
+					}
+					else
+						final.push(temp);
 				});
 				var total=final.length;
+				if(sort=="dist|DESC")
+					final.reverse();
 				cb(null,start,count,total,final);
 			},function(err){
+				console.log("kfahsjdhz");
 				err = new Error(g.f('wrong argument value'));
 				err.statusCode = 400;
 				err.code = 'GET_FAILED_WRONG_ARGUMENT_VALUE';
@@ -314,9 +344,11 @@ module.exports = function(Price) {
 		var data={};
 		var temp = new Date();
 		var list;
+		var rev_list;
 		var count;
 
 		if(!price || !dateTo || !dateFrom || !productId || !shopId){
+			console.log("kjfejs");
 			err = new Error(g.f('wrong argument value'));
 			err.statusCode = 400;
 			err.code = 'POST_FAILED_WRONG_ARGUMENT_VALUE';
@@ -325,17 +357,20 @@ module.exports = function(Price) {
 		if(!err){
 			app.models.Product.findById(productId,function(error,prod){
 				if(error || !prod){
+					console.log("prod");
 					err = new Error(g.f('wrong argument value'));
 					err.statusCode = 400;
 					err.code = 'POST_FAILED_WRONG_ARGUMENT_VALUE';
 					cb(err);
 				}
 				else{
-					app.models.Shop.findById(shopId,function(error,shop){
+					app.models.Shop.find({where:{'id':shopId}},function(error,shop){
 						if(error || !shop){
+							console.log("shop");
 							err = new Error(g.f('wrong argument value'));
 							err.statusCode = 400;
 							err.code = 'POST_FAILED_WRONG_ARGUMENT_VALUE';
+							throw error;
 							cb(err);
 						}
 						else{
@@ -346,6 +381,7 @@ module.exports = function(Price) {
 							var from=new Date(dateFrom);
 							var to=new Date(dateTo);
 							if(from>to) {
+								console.log("from");
 								err = new Error(g.f('wrong argument value'));
 								err.statusCode = 400;
 								err.code = 'POST_FAILED_WRONG_ARGUMENT_VALUE';
@@ -356,23 +392,25 @@ module.exports = function(Price) {
 								var promise=createPrices(count,from,data)
 								promise.then(function(res){
 									to.setDate(to.getDate()+1);
-									var findPromise=findCreatedPrices(from,to,productId.shopIds);
+									var findPromise=findCreatedPrices(from,to,productId,shopId);
 									findPromise.then(function(list){
 										cb(null,list);
 									},function(err){
+										console.log("created");
 										err = new Error(g.f('wrong argument value'));
 										err.statusCode = 400;
 										err.code = 'POST_FAILED_WRONG_ARGUMENT_VALUE';
 										cb(err);
 									});
+
 								},function(err){
-									// console.log("wrong dates");
+									console.log("wrong dates");
 									err = new Error(g.f('wrong argument value'));
 									err.statusCode = 400;
 									err.code = 'POST_FAILED_WRONG_ARGUMENT_VALUE';
 									cb(err);
 								});
-						}
+							}
 						}
 					});
 				}
@@ -382,17 +420,17 @@ module.exports = function(Price) {
 
 	Price.remoteMethod('custom_find',{
 		accepts:[
-			{arg: 'start', type: 'number', http: {source: 'query'}},
-			{arg: 'count', type: 'number', http: {source: 'query'}},
-			{arg: 'geoDist', type: 'number', http: {source: 'query'}},
-			{arg: 'geoLat', type: 'number', http: {source: 'query'}},
-			{arg: 'geoLng', type: 'number', http: {source: 'query'}},
-			{arg: 'dateFrom', type: 'date', http: {source: 'query'}},
-			{arg: 'dateTo', type: 'date', http: {source: 'query'}},
-			{arg: 'shops', type: 'any', http: {source: 'query'}},
-			{arg: 'products', type: 'any', http: {source: 'query'}},
-			{arg: 'tags', type: 'any', http: {source: 'query'}},
-			{arg: 'sort', type: 'string', http: {source: 'query'}}
+			{arg: 'start', type: 'number'},
+			{arg: 'count', type: 'number'},
+			{arg: 'geoDist', type: 'number'},
+			{arg: 'geoLat', type: 'number'},
+			{arg: 'geoLng', type: 'number'},
+			{arg: 'dateFrom', type: 'date'},
+			{arg: 'dateTo', type: 'date'},
+			{arg: 'shops', type: 'array'},
+			{arg: 'products', type: 'array'},
+			{arg: 'tags', type: 'array'},
+			{arg: 'sort', type: 'string'}
 		],
 		returns: [
 			{arg: 'start', type: 'number'},
