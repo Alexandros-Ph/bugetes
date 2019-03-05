@@ -9,7 +9,7 @@ insert into Product values(7,"τσιζκέικ","δροσερό","επιδόρπ
 insert into Product values(8,"σαλάτα","για όλες τις εποχές","σαλάτες",'["χωριάτικη","μαρουλοσαλάτα"]',false);
 insert into Product values(9,"σούπα","με διάφορα λαχανικά","σούπες",'["καρότου","αβοκάντο","ψαρόσουπα"]',false);
 insert into Product values(10,"μπριζόλα","ψήστε την όπως θέλετε","κρέας",'["μοσχαρίσια","χοιρινή"]',false);
-insert into Shop values(1,"Τάκης","Αικατερίνης 3 Μαρούσι",null,'["επιδόρπιο","μαγειρευτά"]',false,null,null,37.1019345,22.54752427);
-insert into Shop values(2,"Η Γωνιά","Πατησίων 45 Αθήνα",null,'["vegan","λαδερά"]',false,null,null,39.16731529,24.22116027);
-insert into Shop values(3,"Στην Ομόνοια","Σταδίου 53 Αθήνα",null,'["ψητά"]',false,null,null,37.71258114,24.44708598);
-insert into Shop values(4,"Μαρίας","Κυψέλης 32 Αθήνα",null,'["ζυμαρικά","ιταλικό"]',false,null,null,38.48124382,23.23822945);
+insert into Shop values(1,"Τάκης","Αικατερίνης 3 Μαρούσι",null,37.1019345,22.54752427,'["επιδόρπιο","μαγειρευτά"]',false,null,null);
+insert into Shop values(2,"Η Γωνιά","Πατησίων 45 Αθήνα",null,39.16731529,24.22116027,'["vegan","λαδερά"]',false,null,null);
+insert into Shop values(3,"Στην Ομόνοια","Σταδίου 53 Αθήνα",null,37.71258114,24.44708598,'["ψητά"]',false,null,null);
+insert into Shop values(4,"Μαρίας","Κυψέλης 32 Αθήνα",null,38.48124382,23.23822945,'["ζυμαρικά","ιταλικό"]',false,null,null);

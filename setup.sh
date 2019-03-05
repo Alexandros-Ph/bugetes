@@ -14,5 +14,5 @@ else
   }
   '> server/datasources.json
   node server/create_tables.js
-  # mysql -p <"script.mysql"
+  # mysql -p <"populate.mysql"
 fi
