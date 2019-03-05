@@ -281,3 +281,4 @@ module.exports = function(Product) {
 		http: {path: '/', verb: 'get'}
 	});
 };
+

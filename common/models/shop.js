@@ -346,3 +346,4 @@ module.exports = function(Shop) {
 		http: {path: '/', verb: 'get'}
 	});
 };
+
