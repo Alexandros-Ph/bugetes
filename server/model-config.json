@@ -83,7 +83,7 @@
 			"sharedMethods":{
 				"find":false,
         "create":false,
-				"patchAttributes":false,
+				"prototype.patchAttributes":false,
 				"patchOrCreate":false,
 				"replaceOrCreate":false,
 				"deleteById":false

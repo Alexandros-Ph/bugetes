@@ -2,6 +2,7 @@
 var app = require('../../server/server');
 var loopback = require('../../node_modules/loopback/lib/loopback');
 
+
 module.exports = function(Shop) {
 
 	Shop.custom_delete=function(id, options, cb){
@@ -84,6 +85,7 @@ module.exports = function(Shop) {
 	}
 
 	Shop.custom_patch=function(id, name, address, lng,lat, tags, withdrawn, cb){
+		//console.log("custom_patch");
 		var self= this;
 		var err = new Error('too many arguments');
 		err.statusCode = 400;
@@ -145,14 +147,43 @@ module.exports = function(Shop) {
 			//self.find({where:where_obj},function(find_err,inst_list){
 			self.findById(id,function(find_err,inst){
 				if(inst){
-					inst.updateAttribute(flag, attr, function(up_err,up_inst){
-						if(up_err){
-							cb(up_err);
-						}
-						else{
-							cb(null,up_inst);
-						}
-					});
+					//console.log(flag);
+					if(flag=="lng"){
+						var new_geo=new loopback.GeoPoint([inst.lat,attr]);
+						//console.log("hello");
+						//console.log(new_geo);
+						inst.updateAttributes({"lng":attr,"location":new_geo}, function(up_err,up_inst){
+							if(up_err){
+								return cb(up_err);
+							}
+							else{
+								return cb(null,up_inst);
+							}
+						});
+					}
+					else if(flag=="lat"){
+						var new_geo=new loopback.GeoPoint([attr,inst.lng]);
+						//console.log("hello");
+						//console.log(new_geo);
+						inst.updateAttributes({"lat":attr,"location":new_geo}, function(up_err,up_inst){
+							if(up_err){
+								return cb(up_err);
+							}
+							else{
+								return cb(null,up_inst);
+							}
+						});
+					}
+					else{
+						inst.updateAttribute(flag, attr, function(up_err,up_inst){
+							if(up_err){
+								return cb(up_err);
+							}
+							else{
+								return cb(null,up_inst);
+							}
+						});
+					}
 				}
 				else{
 					var err = new Error('too many arguments');
@@ -166,33 +197,8 @@ module.exports = function(Shop) {
 			var err = new Error('no valid argument present');
 			err.statusCode = 400;
 			err.code = 'NO_VALID_ARG';
-			cb(err);
+			return cb(err);
 		}
-	}
-
-	function ChangeShops(shopInstances){
-
-		var list=[];
-		var newInst={};
-		console.log(shopInstances);
-		return new Promise(function(resolve,reject){
-				shopInstances.forEach(function(error,inst){
-					if(error) reject(error);
-					console.log(inst);
-					newInst.name=inst.name;
-					console.log(newInst);
-					newInst.address=inst.address;
-					newInst.lat=inst.location.lat;
-					console.log(newInst);
-					newInst.lng=inst.location.lng;
-					newInst.withdrawn=inst.withdrawn;
-					console.log(newInst);
-					newInst.tags=inst.tags;
-					console.log("nshkjd");
-					list.push(newInst);
-				});
-				resolve(list);
-		});
 	}
 
 	Shop.custom_find = function(start, count, status, sort, cb){
@@ -215,7 +221,7 @@ module.exports = function(Shop) {
 			err = new Error('wrong argument value');
 			err.statusCode = 400;
 			return cb(err);
-			//console.log("callback does not return");
+			////console.log("callback does not return");
 		}
 
 		if(sort == "id|DESC" || sort == null) sort="id DESC";
@@ -241,33 +247,16 @@ module.exports = function(Shop) {
 		if(status!="ALL"){
 			self.find({where:{withdrawn:query_withdrawn},limit: count, skip: start, order: sort
 			},function(err,shopInstances){
-				console.log(start,count,shopInstances);
-				var promise=ChangeShops(shopInstances);
-				promise.then(function(list){
 					self.count({withdrawn:query_withdrawn},function(err,total){
-						cb(null, start, count, total, list);
+						cb(null, start, count, total, shopInstances);
 					});
-				},function(err){
-					err = new Error('wrong argument value');
-					err.statusCode = 501;
-					err.code = 'GET_FAILED_WRONG_ARGUMENT_VALUE';
-					return cb(err);
-				});
 			});
 		}
 		else{
 			self.find({limit: count, skip: start, order: sort
 			},function(err,shopInstances){
-				var promise=ChangeShops(shopInstances);
-				promise.then(function(list){
-					self.count(function(err,total){
-						cb(null, start, count, total, list);
-					});
-				},function(err){
-					err = new Error('wrong argument value');
-					err.statusCode = 501;
-					err.code = 'GET_FAILED_WRONG_ARGUMENT_VALUE';
-					return cb(err);
+				self.count(function(err,total){
+					cb(null, start, count, total, shopInstances);
 				});
 			});
 		}
@@ -275,6 +264,7 @@ module.exports = function(Shop) {
 
 	Shop.custom_create=function(data,cb){
 		var temp={};
+		//console.log(data);
 		if(!data.name || !data.address || !data.lat || !data.lng || !data.tags){
 			err = new Error('wrong argument value');
 			err.statusCode = 400;
@@ -283,21 +273,14 @@ module.exports = function(Shop) {
 		}
 		else{
 			var location=new loopback.GeoPoint([data.lat,data.lng]);
-			temp.name=data.name;
-			temp.address=data.address;
-			temp.location=location;
-			if(data.withdrawn!=null)
-				temp.withdrawn=data.withdrawn;
-			Shop.create(temp,function(err,inst){
-				if(err){
-					err = new Error('wrong argument value');
-					err.statusCode = 400;
-					err.code = 'GET_FAILED_WRONG_ARGUMENT_VALUE';
-					return cb(err);
+			data.location=location;
+			//console.log("before create");
+			//console.log(data);
+			Shop.create(data,function(creat_err,inst){
+				if(creat_err){
+					throw creat_err;
 				}
-				data.id=inst.id;
-				data.withdrawn=inst.withdrawn;
-				cb(null,data);
+				return cb(null,inst);
 			});
 		}
 	}
