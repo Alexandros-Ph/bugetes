@@ -13,73 +13,6 @@ module.exports = function(Price) {
 		return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
 	}
 
-	function updateDist(elem,dist) {
-		return new Promise(function(resolve,reject){
-			elem.updateAttribute("distance",dist,function(err,price){
-				if(err) reject(err);
-				resolve(price);
-			});
-		});
-	}
-
-	function setDistance(geoLat,geoLng){
-		var from = new loopback.GeoPoint([0,0]); //shop coordinates
-		var to = new loopback.GeoPoint([geoLat,geoLng]);
-		var dist=0;
-		var temp;
-		console.log("to  "+to);
-		return new Promise(function(resolve,reject){
-			app.models.Price.find({include:[{relation:'shop',scope:{fields:['lat','lng']}}]},function(error,list){
-				if(error)
-					reject(error);
-				else{
-					list.forEach(function(elem){
-						temp=elem.toJSON();
-						from = new loopback.GeoPoint([temp.shop.lat,temp.shop.lng]);
-						console.log("from  "+temp.shop.lat+","+temp.shop.lng);
-						dist = from.distanceTo(to);
-						console.log("distance = "+dist);
-						// var update=updateDist(elem,dist);
-						// update.then(function(res){
-						// 	console.log("updated");
-						// },function(err){
-						// 	reject(err);
-						// });
-					});
-					console.log("promise 2");
-					resolve(list);
-				}
-			});
-		});
-	}
-
-	// function setDistance(geoLat,geoLng) {
-	// 	var from = new loopback.GeoPoint([0,0]); //shop coordinates
-	// 	var to = new loopback.GeoPoint([geoLat,geoLng]);
-	// 	var dist=0;
-	// 	return new Promise(function(resolve,reject){
-	// 		console.log("to  "+geoLat+","+geoLng);
-	// 		var promise=beforeUpdate(to);
-	// 		promise.then(function(list){
-	// 			list.forEach(function(elem){
-	// 				from = new loopback.GeoPoint([elem.shop.lat,elem.shop.lng]);
-	// 				console.log("from  "+elem.shop.lat+","+elem.shop.lng);
-	// 				dist = from.distanceTo(to);
-	// 				console.log("distance = "+dist);
-	// 				var promise=updateDist(dist,elem.id);
-	// 				promise.then(function(res){
-	// 					console.log("next shop");
-	// 				},function(err){
-	// 					reject(err);
-	// 				});
-	// 			});
-	// 			console.log("promise 1");
-	// 			resolve();
-	// 		},function(error){
-	// 			reject(error);
-	// 		});
-	// 	});
-	// }
 	//function to get list of new pries to return them for POST
 	function findCreatedPrices(dateFrom,dateTo,productId,shopId){
 		return new Promise(function(resolve,reject){
@@ -88,6 +21,19 @@ module.exports = function(Price) {
 							console.log("found "+list.length+" prices");
 							resolve(list);
 						});
+		});
+	}
+
+	function tempCreate(data) {
+		console.log("temp create");
+		return new Promise(function(resolve,reject){
+			app.models.Price.create(data,function(error,instance){
+				if(error){
+					throw error;
+					reject(error);
+				}
+				resolve(instance);
+			});
 		});
 	}
 	//function to make prices from POST request
@@ -100,13 +46,13 @@ module.exports = function(Price) {
 		return new Promise(function(resolve,reject){
 			for(var i=0;i<count;i++){
 				data.date=temp;
-				console.log("i = "+i);
-				app.models.Price.create(data,function(error,instance){
-					if(error){
-						reject(error);
-					}
+				console.log(i);
+				var prom=tempCreate(data);
+				prom.then(function(instance){
+					temp.setDate(temp.getDate()+1);
+				},function(err){
+					reject(err);
 				});
-				temp.setDate(temp.getDate()+1);
 			}
 			resolve();
 		});
@@ -151,9 +97,6 @@ module.exports = function(Price) {
 
 		where_obj.and=[];
 		shop_obj={relation:'shop',scope:{fields:['tags','address','name','location']}};
-		// mysqlString=mysqlString+"select Price.*,Product.*,Shop.*,Product.tags as prodTags,Shop.tags as shopTags,ST_Distance_Sphere((?,?),(?,?)) as dist ";
-		// mysqlString=mysqlString+"from Price inner join Product on Price.productId=Product.id inner join Shop on Price.shopId=Shop.Id where";
-		// console.log(mysqlString);
 		if(!start) start=0;
 		if(!count) count=20;
 		if(!sort) sortBy="price ASC";
@@ -393,6 +336,8 @@ module.exports = function(Price) {
 								promise.then(function(res){
 									to.setDate(to.getDate()+1);
 									var findPromise=findCreatedPrices(from,to,productId,shopId);
+
+									console.log("lalaaa");
 									findPromise.then(function(list){
 										cb(null,list);
 									},function(err){
@@ -443,11 +388,11 @@ module.exports = function(Price) {
 
 	Price.remoteMethod('custom_create',{
 		accepts:[
-			{arg: 'price', type: 'number',http: {source: 'query'}},
-			{arg: 'dateFrom', type: 'date', http: {source: 'query'}},
-			{arg: 'dateTo', type: 'date', http: {source: 'query'}},
-			{arg: 'productId', type: 'number', http: {source: 'query'}},
-			{arg: 'shopId', type: 'number', http: {source: 'query'}}
+			{arg: 'price', type: 'number'},
+			{arg: 'dateFrom', type: 'date'},
+			{arg: 'dateTo', type: 'date'},
+			{arg: 'productId', type: 'number'},
+			{arg: 'shopId', type: 'number'}
 		],
 		returns: [
 			{root:true,arg: 'prices', type:'array'}
