@@ -56,7 +56,7 @@ module.exports = function(Product) {
 									}
 								});
 							}
-							else{
+							else{		// provider
 								self.findById(id,function(find_err,inst){
 									if(find_err)
 										throw find_err;
@@ -79,8 +79,22 @@ module.exports = function(Product) {
 						}
 					});
 				}
-				else{
-					return cb(err);
+				else{			// if not map inst --> user (no RoleMapping)
+					self.findById(id,function(find_err,inst){
+						if(find_err)
+							throw find_err;
+						if(inst){
+							inst.updateAttribute("withdrawn",true,function(up_err){
+								if(up_err)
+									throw up_err;
+								else
+									return cb(null,{"message":"OK"});
+							});
+						}
+						else{
+							return cb(err);
+						}
+					});
 				}
 			});
 		}
