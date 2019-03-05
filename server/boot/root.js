@@ -2,6 +2,7 @@
 
 module.exports = function(app) {
 
+  var geo = require('../geo');
   var User = app.models.MyUser;
   var Role = app.models.Role;
   var RoleMapping = app.models.RoleMapping;
@@ -17,7 +18,7 @@ module.exports = function(app) {
    });
 
 
-// register a user
+   // register a user
    app.post('/register', function(req, res){
      User.create({
        username: req.body.fname,
@@ -36,19 +37,25 @@ module.exports = function(app) {
        console.log(userInstance);
        // if he selected provider, make him a provider
        if (req.body.select == 2){
-         Role.findOne({where: {name: 'provider'}}, function(err, role) {
+         Role.findOne({where: {name: 'provider'}}, async function(err, role) {
            role.principals.create({
              principalType: RoleMapping.USER,
              principalId: userInstance.id
            }, function(err, principal) {
              if (err) throw err;
            });
+           var loc = await geo(req.body.addr);
            Shop.create({
 			       name: userInstance.username,
              address: req.body.addr,
-             userId: userInstance.id
-           }, function(error){
+             userId: userInstance.id,
+             location: loc
+           }, function(error, shop){
              if (error) throw error;
+             userInstance.updateAttribute('shopId', shop.id, function(erru){
+               if (erru) throw erru;
+             });
+             console.log(shop);
            });
          });
        }
@@ -90,6 +97,9 @@ module.exports = function(app) {
                     accessToken: token.id
                   });
                 }
+                else if ((obj.name == 'admin') || (obj.name == 'dev')){
+                  res.redirect('stats_adm?access_token='+token.id);  // redirect to admin home page
+                }
                 else{
                   res.render('home', {                   //we will redirect to admin page here when it's ready
                     email: req.body.email,
@@ -103,9 +113,16 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/prov_home', function(req, res, next) {            // ONLY WORKS FOR PROVIDER, MUST IMPLEMENT USER
+  app.get('/prov_home', function(req, res, next) {            // provider home
     if (!req.accessToken) return res.sendStatus(401);         //return 401:unauthorized if accessToken is not present
     res.render('prov_home', {                                 // render 'prov_home' view
+      accessToken: req.accessToken.id
+    });
+  });
+
+  app.get('/user_home', function(req, res, next) {            // user home
+    if (!req.accessToken) return res.sendStatus(401);         //return 401:unauthorized if accessToken is not present
+    res.render('home', {                                      // render 'home' view
       accessToken: req.accessToken.id
     });
   });

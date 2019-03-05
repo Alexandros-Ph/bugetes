@@ -28,6 +28,9 @@
   			</button>
   			<div class="collapse navbar-collapse" id="navbarResponsive">
   				<ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+  						<a class="nav-link js-scroll-trigger link-3" href="/profile">Home</a>
+  					</li>
   					<li class="nav-item">
   						<a class="nav-link js-scroll-trigger link-3" href="/profile">Profile</a>
   					</li>
@@ -56,19 +59,16 @@
                             Menu
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="/reports"><i class="fa fa-fw fa-user-circle"></i>Reports </a>
+                            <a class="nav-link" href="javascript:void(0);"><i class="fa fa-fw fa-user-circle"></i>Reports </a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link"  href="/prov_acc"><i class="fa fa-fw fa-user-circle"></i>Providers' Accounts</a>
+                            <a class="nav-link"  href="/prov_acc?access_token=<%=accessToken%>"><i class="fa fa-fw fa-user-circle"></i>Providers' Accounts</a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="/usr_acc"><i class="fa fa-fw fa-user-circle"></i>Users' Accounts</a>
+                            <a class="nav-link" href="/usr_acc?access_token=<%=accessToken%>"><i class="fa fa-fw fa-user-circle"></i>Users' Accounts</a>
                         </li>
                         <li class="nav-item ">
-                          <a class="nav-link" href="/stats_adm"><i class="fa fa-fw fa-user-circle"></i>Statistics </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Administrators' Accounts </a>
+                          <a class="nav-link" href="/stats_adm?access_token=<%=accessToken%>"><i class="fa fa-fw fa-user-circle"></i>Statistics </a>
                         </li>
                     </ul>
                 </div>

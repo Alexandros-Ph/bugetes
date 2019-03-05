@@ -25,17 +25,20 @@
 
     <nav class="navbar navbar-expand-lg navbar-white bg-white fixed-top" id="mainNav">
   		<div class="container">
-  			<a class="navbar-brand js-scroll-trigger" href="/stats_adm" id="logo_wrap"> <img src="/images/homemade.jpg" alt="" id="logo"> </a>
+  			<a class="navbar-brand js-scroll-trigger" href="javascript:void(0);" id="logo_wrap"> <img src="/images/homemade.jpg" alt="" id="logo"> </a>
   			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
   				<span class="navbar-toggler-icon"></span>
   			</button>
   			<div class="collapse navbar-collapse" id="navbarResponsive">
   				<ul class="navbar-nav ml-auto">
-  					<li class="nav-item">
-  						<a class="nav-link js-scroll-trigger link-3" href="/profile">Profile</a>
+            <li class="nav-item">
+  						<a class="nav-link js-scroll-trigger link-3" href="javascript:void(0);">Home</a>
   					</li>
   					<li class="nav-item">
-  						<a class="nav-link js-scroll-trigger link-3" href="/logout" id="logout">Log out</a>
+  						<a class="nav-link js-scroll-trigger link-3" href="/profile?access_token=<%=accessToken%>">Profile</a>
+  					</li>
+  					<li class="nav-item">
+  						<a class="nav-link js-scroll-trigger link-3" href="/logout?access_token=<%=accessToken%>" id="logout">Log out</a>
   					</li>
   				</ul>
   			</div>
@@ -58,11 +61,10 @@
                         <li class="nav-divider">
                             Menu
                         </li>
-                        <a class="nav-link" href="/reports"><i class="fa fa-fw fa-user-circle"></i>Reports </a>
-                        <a class="nav-link"  href="/prov_acc"><i class="fa fa-fw fa-user-circle"></i>Providers' Accounts</a>
-                        <a class="nav-link" href="/usr_acc"><i class="fa fa-fw fa-user-circle"></i>Users' Accounts</a>
-                        <a class="nav-link" href="/stats_adm"><i class="fa fa-fw fa-user-circle"></i>Statistics </a>
-                        <a class="nav-link" href="#"><i class="fa fa-fw fa-user-circle"></i>Administrators' Accounts </a>
+                        <a class="nav-link" href="javascript:void(0);"><i class="fa fa-fw fa-user-circle"></i>Reports </a>
+                        <a class="nav-link"  href="/prov_acc?access_token=<%=accessToken%>"><i class="fa fa-fw fa-user-circle"></i>Providers' Accounts</a>
+                        <a class="nav-link" href="/usr_acc?access_token=<%=accessToken%>"><i class="fa fa-fw fa-user-circle"></i>Users' Accounts</a>
+                        <a class="nav-link" href="javascript:void(0);"><i class="fa fa-fw fa-user-circle"></i>Statistics </a>
 
                     </ul>
                 </div>
@@ -98,7 +100,7 @@
         Number of posts
       <hr>
       <div class="number">
-        <h1>4270</h1>
+        <h1><%= posts %></h1>
       </div>
     </div>
   </div>
@@ -108,7 +110,7 @@
       Number of reports
     <hr>
     <div class="number">
-      <h1>4</h1>
+      <h1>0</h1>
     </div>
   </div>
 </div>

@@ -8,7 +8,7 @@
   "http": {"path": "/api"},
   "relations": {
     "shop": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "Shop",
       "foreignKey": "shopId"
     },

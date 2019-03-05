@@ -15,25 +15,23 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/user.css">
 <!--===============================================================================================-->
+
 </head>
 <body class="gray_back">
 
 	<nav class="navbar navbar-expand-lg navbar-white bg-white fixed-top" id="mainNav">
 		<div class="container">
-			<a class="navbar-brand js-scroll-trigger" href="#" id="logo_wrap"> <img src="images/homemade.jpg" alt="" id="logo"> </a>
+			<a class="navbar-brand js-scroll-trigger" href="/user_home?access_token=<%=accessToken%>" id="logo_wrap"> <img src="images/homemade.jpg" alt="" id="logo"> </a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger link-3" href="#">Active</a>
+						<a class="nav-link js-scroll-trigger link-3" href="/user_home?access_token=<%=accessToken%>">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger link-3" href="#">History</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger link-3" href="/profile">Profile</a>
+						<a class="nav-link js-scroll-trigger link-3" href="/profile?access_token=<%=accessToken%>">Profile</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link js-scroll-trigger link-3" href="/logout?access_token=<%=accessToken%>" id="logout">Log out</a>
@@ -111,6 +109,8 @@
 			                            <input class="portions" type="number" name="portions" value="1"></label>
 			                        </li>
 															<input class="field" type="text" name="token" value="<%=accessToken%>" style="display:none">
+															<input class="field" type="text" name="start" value="<%=start%>" style="display:none">
+															<input class="field" type="number" name="dist" value="<%=dist%>" style="display:none">
 			                        <div class="row ">
 
 
@@ -131,6 +131,15 @@
 			    </div>
 				</div>
 
+				<p id="fakex" style="display:none"><%= lat %></p>
+				<p id="fakey" style="display:none"><%= lng %></p>
+				<% shops.forEach((shop) => {
+			    %>
+				<p class="shopx" style="display:none"><%= shop[0] %></p>
+				<p class="shopy" style="display:none"><%= shop[1] %></p>
+				<%
+				}) %>
+				
 				<div class="col-lg-5 mx-auto marg">
 					<% foods.forEach((food) => {
       %>
@@ -152,16 +161,17 @@
 
 				</div>
 				<div class="col-lg-5 mx-auto marg" >
-					<div class="wrap_map">
-						Χάρτης
-					</div>
+					 <div id="gmap_canvas" style="height: 100%; width: 85%;margin-left:50px;"></div>
 				</div>
 
 			</div>
 	</div>
 
 
-
+<script src="js/map.js"></script>
+	<script async defer
+	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQeSlLD3EuBqByQIXEsYNaHn3Augdfm70&callback=initMap">
+	    </script>
 <!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
@@ -171,6 +181,7 @@
 	<script src="vendor/tilt/tilt.jquery.min.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+
 
 </body>
 </html>
